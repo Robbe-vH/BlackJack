@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,7 +43,7 @@ namespace BlackJack
             LblDealerScore.Text = Convert.ToString(dealerPunten);
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
             LblResultaat.Text = "";
-            
+
         }
 
         // functie voor een nieuwe kaart te genereren 
@@ -158,7 +158,7 @@ namespace BlackJack
             string spelerKaart = GeefKaart(out spelerKaartScore);
             string spelerKaart2 = GeefKaart(out spelerKaart2Score);
             spelerPunten += spelerKaartScore + spelerKaart2Score;
-            
+
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
 
@@ -167,6 +167,16 @@ namespace BlackJack
             BtnHit.IsEnabled = true;
             BtnStand.IsEnabled = true;
 
+        }
+
+        private void BtnHit_Click(object sender, RoutedEventArgs e)
+        {
+            // zelfde als verdelen, maar dan maar 1 kaart 
+            int spelerKaartScore;
+            string spelerKaart = GeefKaart(out spelerKaartScore);
+            spelerPunten += spelerKaartScore;
+            TxtSpelerKaarten.Text += $"\n{spelerKaart}";
+            LblSpelerScore.Text = Convert.ToString(spelerPunten);
         }
     }
 }
