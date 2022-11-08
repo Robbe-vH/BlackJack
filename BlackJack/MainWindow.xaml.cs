@@ -29,6 +29,7 @@ namespace BlackJack
             InitializeComponent();
         }
 
+
         // functie om een nieuw spel te starten
         // maakt alle velden & scores leeg en deactiveert Hit & Stand knoppen
         // Deelt daarna kaarten uit
@@ -136,6 +137,31 @@ namespace BlackJack
             return kaart + kaartgetal;
         }
 
+        // win/lose/push functies
+        private void Win()
+        {
+            LblResultaat.Text = "Gewonnen!";
+            BtnHit.IsEnabled = false;
+            BtnStand.IsEnabled = false;
+            BtnDeel.IsEnabled = true;
+        }
+
+        private void Lose()
+        {
+            LblResultaat.Text = "Verloren!";
+            BtnHit.IsEnabled = false;
+            BtnStand.IsEnabled = false;
+            BtnDeel.IsEnabled = true;
+        }
+        private void Push()
+        {
+            LblResultaat.Text = "Push!";
+            BtnHit.IsEnabled = false;
+            BtnStand.IsEnabled = false;
+            BtnDeel.IsEnabled = true;
+        }
+
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             NewGame();
@@ -178,6 +204,11 @@ namespace BlackJack
             spelerPunten += spelerKaartScore;
             TxtSpelerKaarten.Text += $"\n{spelerKaart}";
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
+
+            if (spelerPunten > 21)
+            {
+                Lose();
+            }
         }
 
         private void BtnStand_Click(object sender, RoutedEventArgs e)
@@ -191,6 +222,19 @@ namespace BlackJack
                 TxtDealerKaarten.Text += $"\n{ dealerKaart}"; // Dealer waardes afdrukken
                 LblDealerScore.Text = Convert.ToString(dealerPunten);
 
+            }
+
+            if (dealerPunten > 21)
+            {
+                Win();
+            }
+            else if (dealerPunten == spelerPunten)
+            {
+                Push();
+            }
+            else if (dealerPunten > spelerPunten)
+            {
+                Lose();
             }
         }
     }
