@@ -236,6 +236,10 @@ namespace BlackJack
             {
                 Lose();
             }
+            else if (dealerPunten < spelerPunten)
+            {
+                Win();
+            }
         }
     }
 }
