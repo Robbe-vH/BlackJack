@@ -20,9 +20,39 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
+        int spelerPunten;
+        int dealerPunten;
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        // functie om een nieuw spel te starten
+        // maakt alle velden & scores leeg en deactiveert Hit & Stand knoppen
+        // Deelt daarna kaarten uit
+        private void NewGame()
+        {
+            // leegmaken
+            BtnHit.IsEnabled = false;
+            BtnStand.IsEnabled = false;
+            TxtDealerKaarten.Clear();
+            TxtSpelerKaarten.Clear();
+            spelerPunten = 0;
+            dealerPunten = 0;
+            LblDealerScore.Text = Convert.ToString(dealerPunten);
+            LblSpelerScore.Text = Convert.ToString(spelerPunten);
+
+            // Kaarten delen
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            NewGame();
+        }
+
+        private void BtnDeel_Click(object sender, RoutedEventArgs e)
+        {
+            NewGame();
         }
     }
 }
