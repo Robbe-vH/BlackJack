@@ -22,6 +22,7 @@ namespace BlackJack
     {
         int spelerPunten;
         int dealerPunten;
+        bool isSpeler = true;
 
         public MainWindow()
         {
@@ -47,7 +48,7 @@ namespace BlackJack
         }
 
         // functie voor een nieuwe kaart te genereren 
-        private string GeefKaart(out int kaartWaarde)
+        private string GeefKaart(bool isSpeler, out int kaartWaarde)
         {
             kaartWaarde = 0;
             string kaart = "";
@@ -147,7 +148,7 @@ namespace BlackJack
 
             // kaarten delen, dealer 1, speler 2
             int dealerKaartscore;
-            string dealerKaart = GeefKaart(out dealerKaartscore);
+            string dealerKaart = GeefKaart(true, out dealerKaartscore); // is geen speler, maar de bool staat op true om een kaart te geven
             dealerPunten += dealerKaartscore;
 
             TxtDealerKaarten.Text = dealerKaart; // Dealer waardes afdrukken
@@ -155,8 +156,8 @@ namespace BlackJack
 
             int spelerKaartScore;
             int spelerKaart2Score;
-            string spelerKaart = GeefKaart(out spelerKaartScore);
-            string spelerKaart2 = GeefKaart(out spelerKaart2Score);
+            string spelerKaart = GeefKaart(true, out spelerKaartScore);
+            string spelerKaart2 = GeefKaart(true, out spelerKaart2Score);
             spelerPunten += spelerKaartScore + spelerKaart2Score;
 
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
@@ -173,10 +174,24 @@ namespace BlackJack
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
             int spelerKaartScore;
-            string spelerKaart = GeefKaart(out spelerKaartScore);
+            string spelerKaart = GeefKaart(isSpeler, out spelerKaartScore);
             spelerPunten += spelerKaartScore;
             TxtSpelerKaarten.Text += $"\n{spelerKaart}";
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
+        }
+
+        private void BtnStand_Click(object sender, RoutedEventArgs e)
+        {
+            while (dealerPunten < 17)
+            {
+                int dealerKaartscore;
+                string dealerKaart = GeefKaart(true, out dealerKaartscore);
+                dealerPunten += dealerKaartscore;
+
+                TxtDealerKaarten.Text += $"\n{ dealerKaart}"; // Dealer waardes afdrukken
+                LblDealerScore.Text = Convert.ToString(dealerPunten);
+
+            }
         }
     }
 }
