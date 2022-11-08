@@ -54,5 +54,15 @@ namespace BlackJack
         {
             NewGame();
         }
+
+        private void BtnHit_Click(object sender, RoutedEventArgs e)
+        {
+            // zelfde als verdelen, maar dan maar 1 kaart 
+            int spelerKaartScore;
+            string spelerKaart = GeefKaart(out spelerKaartScore);
+            spelerPunten += spelerKaartScore;
+            TxtSpelerKaarten.Text += $"\n{spelerKaart}";
+            LblSpelerScore.Text = Convert.ToString(spelerPunten);
+        }
     }
 }
