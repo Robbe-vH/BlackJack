@@ -363,6 +363,10 @@ namespace BlackJack
             UpdateInzet(0);
         }
 
+
+        // Knop voor een nieuw spel te starten
+        // geeft speler 100 pingels
+        // zet de knoppen terug uit en maakt de velden leeg
         private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
         {
             Newgame();
