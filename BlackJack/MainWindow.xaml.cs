@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Collections;
+
 
 namespace BlackJack
 {
@@ -23,6 +25,8 @@ namespace BlackJack
         int spelerPunten;
         int dealerPunten;
         bool isSpeler = true;
+        int budget;
+        int inzet = 0;
 
         public MainWindow()
         {
@@ -46,18 +50,25 @@ namespace BlackJack
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
             LblResultaat.Text = "";
 
+            // speler terug 100 euro geven
+            budget = 100;
+            UpdateBudget();
+
         }
 
         // functie voor een nieuwe kaart te genereren 
-        private string GeefKaart(bool isSpeler, out int kaartWaarde)
+        private string GeefKaart(bool isSpeler, int punten, out int kaartWaarde)
         {
+            
             kaartWaarde = 0;
             string kaart = "";
             string kaartgetal = "";
             Random rnd = new Random();
             int teken = rnd.Next(1, 5);
-            int getal = rnd.Next(1, 14);
+            int getal = rnd.Next(1, 3);
 
+            // switch cases voor de kaarten (moet een dicionary worden of class)
+            // Dictionary<int, string> kaartenDeck = new Dictionary<int, string>() { 1, "Harten Aas"};
             switch (teken)
             {
                 case 1:
@@ -79,8 +90,17 @@ namespace BlackJack
             switch (getal)
             {
                 case 1:
-                    kaartgetal = "1";
-                    kaartWaarde = 1;
+                    kaartgetal = "Aas";
+                    // Bij een aas kijken of het 10 punten moeten zijn of 1 punt
+                    if (punten <= 10)
+                    {
+                        kaartWaarde = 11;
+                    }
+                    else
+                    {
+                        kaartWaarde = 1;
+                    }
+                    
                     break;
                 case 2:
                     kaartgetal = "2";
@@ -161,6 +181,11 @@ namespace BlackJack
             BtnDeel.IsEnabled = true;
         }
 
+        private void UpdateBudget()
+        {
+            LblBudget.Text = Convert.ToString(budget);
+        }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -174,7 +199,7 @@ namespace BlackJack
 
             // kaarten delen, dealer 1, speler 2
             int dealerKaartscore;
-            string dealerKaart = GeefKaart(true, out dealerKaartscore); // is geen speler, maar de bool staat op true om een kaart te geven
+            string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore); // is geen speler, maar de bool staat op true om een kaart te geven
             dealerPunten += dealerKaartscore;
 
             TxtDealerKaarten.Text = dealerKaart; // Dealer waardes afdrukken
@@ -182,8 +207,8 @@ namespace BlackJack
 
             int spelerKaartScore;
             int spelerKaart2Score;
-            string spelerKaart = GeefKaart(true, out spelerKaartScore);
-            string spelerKaart2 = GeefKaart(true, out spelerKaart2Score);
+            string spelerKaart = GeefKaart(true, spelerPunten, out spelerKaartScore);
+            string spelerKaart2 = GeefKaart(true, spelerPunten, out spelerKaart2Score);
             spelerPunten += spelerKaartScore + spelerKaart2Score;
 
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
@@ -200,7 +225,7 @@ namespace BlackJack
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
             int spelerKaartScore;
-            string spelerKaart = GeefKaart(isSpeler, out spelerKaartScore);
+            string spelerKaart = GeefKaart(isSpeler, spelerPunten, out spelerKaartScore);
             spelerPunten += spelerKaartScore;
             TxtSpelerKaarten.Text += $"\n{spelerKaart}";
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
@@ -216,7 +241,7 @@ namespace BlackJack
             while (dealerPunten < 17)
             {
                 int dealerKaartscore;
-                string dealerKaart = GeefKaart(true, out dealerKaartscore);
+                string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore);
                 dealerPunten += dealerKaartscore;
 
                 TxtDealerKaarten.Text += $"\n{ dealerKaart}"; // Dealer waardes afdrukken
@@ -240,6 +265,26 @@ namespace BlackJack
             {
                 Win();
             }
+        }
+
+        private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnInzetPlus5_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnInzetPlus10_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnInzetPlus25_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
