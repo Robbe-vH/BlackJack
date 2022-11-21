@@ -230,11 +230,26 @@ namespace BlackJack
             {
                 inzet += i;
                 LblInzet.Text = Convert.ToString(inzet);
+
+                // checken of de speler minimaal 10% van zijn/haar budget heeft ingezet
+                if (inzet < budget * 0.1)
+                {
+                    LblResultaat.FontSize = 15;
+                    LblResultaat.Text = "Zet minstens 10% in!";
+                    BtnDeel.IsEnabled = false;
+                }
+                else
+                {
+                    LblResultaat.FontSize = 25;
+                    LblResultaat.Text = "";
+                    BtnDeel.IsEnabled = true;
+                }
             }
-            else
+            else if (inzet < budget)
             {
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
             }
+            
         }
 
         private void UpdateBudget()
