@@ -26,34 +26,74 @@ namespace BlackJack
         int dealerPunten;
         bool isSpeler = true;
         int budget;
-        int inzet = 0;
+        int inzet;
 
         public MainWindow()
         {
             InitializeComponent();
+            MaakVeldenLeeg();
+            BtnHit.IsEnabled = false;
+            BtnStand.IsEnabled = false;
+            BtnDeel.IsEnabled = false;
+            BtnInzetPlus1.IsEnabled = false;
+            BtnInzetPlus10.IsEnabled = false;
+            BtnInzetPlus5.IsEnabled = false;
+            BtnInzetPlus25.IsEnabled = false;
+            BtnResetInzet.IsEnabled = false;
+            LblBudget.Text = "";
+            LblInzet.Text = "";
+        }
+
+        private void MaakVeldenLeeg()
+        {
+            LblResultaat.Text = "";
+            TxtDealerKaarten.Clear();
+            TxtSpelerKaarten.Clear();
+        }
+
+        // functie om een nieuw spel te starten
+        // geeft de speler 100 flippo's
+        // zet de speel knoppen op enabled
+        // start dan een nieuwe ronde
+        private void Newgame()
+        {
+            budget = 100;
+            inzet = 0;
+            UpdateBudget();
+            UpdateInzet(0);
+            BtnDeel.IsEnabled = true;
+            BtnInzetPlus1.IsEnabled = true;
+            BtnInzetPlus10.IsEnabled = true;
+            BtnInzetPlus5.IsEnabled = true;
+            BtnInzetPlus25.IsEnabled = true;
+            BtnResetInzet.IsEnabled = true;
+            BtnNieuwSpel.IsEnabled = false;
         }
 
 
-        // functie om een nieuw spel te starten
+        // functie om een nieuwe ronde te starten
         // maakt alle velden & scores leeg en deactiveert Hit & Stand knoppen
         // Deelt daarna kaarten uit
-        private void NewGame()
+        private void NewRound()
         {
             // leegmaken
+            MaakVeldenLeeg();
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
-            TxtDealerKaarten.Clear();
-            TxtSpelerKaarten.Clear();
             spelerPunten = 0;
             dealerPunten = 0;
             LblDealerScore.Text = Convert.ToString(dealerPunten);
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
-            LblResultaat.Text = "";
 
-            // speler terug 100 euro geven
-            budget = 100;
-            UpdateBudget();
-
+            // Knoppen veranderen
+            BtnDeel.IsEnabled = false;
+            BtnHit.IsEnabled = true;
+            BtnStand.IsEnabled = true;
+            BtnInzetPlus1.IsEnabled = false;
+            BtnInzetPlus5.IsEnabled = false;
+            BtnInzetPlus10.IsEnabled = false;
+            BtnInzetPlus25.IsEnabled = false;
+            BtnResetInzet.IsEnabled = false;
         }
 
         // functie voor een nieuwe kaart te genereren 
@@ -64,8 +104,8 @@ namespace BlackJack
             string kaart = "";
             string kaartgetal = "";
             Random rnd = new Random();
-            int teken = rnd.Next(1, 5);
-            int getal = rnd.Next(1, 3);
+            int teken = rnd.Next(1, 5);     // aantal kleuren
+            int getal = rnd.Next(1, 14);    // aantal kaarten per kleur
 
             // switch cases voor de kaarten (moet een dicionary worden of class)
             // Dictionary<int, string> kaartenDeck = new Dictionary<int, string>() { 1, "Harten Aas"};
@@ -157,6 +197,7 @@ namespace BlackJack
             return kaart + kaartgetal;
         }
 
+
         // win/lose/push functies
         private void Win()
         {
@@ -181,21 +222,39 @@ namespace BlackJack
             BtnDeel.IsEnabled = true;
         }
 
+
+        // Inzetten en kapitaal functiets
+        private void UpdateInzet(int i)
+        {
+            if (inzet < budget)     // inzetten kan tot maximaal het budget
+            {
+                inzet += i;
+                LblInzet.Text = Convert.ToString(inzet);
+            }
+            else
+            {
+                MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
+            }
+        }
+
         private void UpdateBudget()
         {
+            budget -= inzet;
             LblBudget.Text = Convert.ToString(budget);
         }
 
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            NewGame();
-        }
-
+        // Button Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            // alles leegmaken
-            NewGame();
+            // Nieuwe ronde starten
+            // velden leeg en knoppen veranderen
+            // inzet aftrekken van het budget
+            NewRound();
+
+            // inzet van budget aftrekken
+            UpdateBudget();
+
 
             // kaarten delen, dealer 1, speler 2
             int dealerKaartscore;
@@ -213,11 +272,6 @@ namespace BlackJack
 
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
-
-            // Knoppen veranderen
-            BtnDeel.IsEnabled = false;
-            BtnHit.IsEnabled = true;
-            BtnStand.IsEnabled = true;
 
         }
 
@@ -269,22 +323,35 @@ namespace BlackJack
 
         private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            UpdateInzet(1);
         }
 
         private void BtnInzetPlus5_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateInzet(5);
         }
 
         private void BtnInzetPlus10_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateInzet(10);
         }
 
         private void BtnInzetPlus25_Click(object sender, RoutedEventArgs e)
         {
-
+            UpdateInzet(25);
         }
+
+        private void BtnResetInzet_Click(object sender, RoutedEventArgs e)
+        {
+            inzet =     0;
+            UpdateInzet(0);
+        }
+
+        private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
+        {
+            Newgame();
+        }
+
     }
 }

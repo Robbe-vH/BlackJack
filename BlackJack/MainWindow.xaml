@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded" Background="#FFF8C8DC">
+        Title="MainWindow" Height="450" Width="800" Background="#FFF8C8DC">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -27,7 +27,8 @@
         <Button x:Name="BtnHit" Grid.Column="5" Grid.Row="4"  Content="Hit"  Margin="20 50" Click="BtnHit_Click"/>
         <Button x:Name="BtnStand" Grid.Column="6" Grid.Row="4" Content="Stand"  Margin="20, 50" Click="BtnStand_Click"/>
         <Button x:Name="BtnDeel" Grid.Column="7" Grid.Row="4" Content="Deel"  Margin="20,50" Click="BtnDeel_Click"/>
-        <Button x:Name="BtnResetInzet" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Content="Inzet Resetten" Margin="10" Height="40" VerticalAlignment="Bottom" />
+        <Button x:Name="BtnNieuwSpel" Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="2" Content="Nieuw Spel"  Margin="20, 50" Click="BtnNieuwSpel_Click"/>
+        <Button x:Name="BtnResetInzet" Grid.Column="3" Grid.Row="1" Grid.ColumnSpan="2" Content="Inzet Resetten" Margin="10" Height="40" VerticalAlignment="Bottom" Click="BtnResetInzet_Click"/>
         <Button x:Name="BtnInzetPlus1" Grid.Column="3" Grid.Row="2" Content="+1" Margin="10, 15" Click="BtnInzetPlus1_Click"/>
         <Button x:Name="BtnInzetPlus5" Grid.Column="4" Grid.Row="2" Content="+5" Margin="10, 15" Click="BtnInzetPlus5_Click"/>
         <Button x:Name="BtnInzetPlus10" Grid.Column="3" Grid.Row="3" Content="+10" Margin="10, 15" Click="BtnInzetPlus10_Click"/>
