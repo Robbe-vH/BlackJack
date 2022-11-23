@@ -99,7 +99,7 @@ namespace BlackJack
         // functie voor een nieuwe kaart te genereren 
         private string GeefKaart(bool isSpeler, int punten, out int kaartWaarde)
         {
-            
+
             kaartWaarde = 0;
             string kaart = "";
             string kaartgetal = "";
@@ -140,7 +140,7 @@ namespace BlackJack
                     {
                         kaartWaarde = 1;
                     }
-                    
+
                     break;
                 case 2:
                     kaartgetal = "2";
@@ -249,7 +249,7 @@ namespace BlackJack
             {
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
             }
-            
+
         }
 
         private void UpdateBudget()
@@ -264,7 +264,6 @@ namespace BlackJack
         {
             // Nieuwe ronde starten
             // velden leeg en knoppen veranderen
-            // inzet aftrekken van het budget
             NewRound();
 
             // inzet van budget aftrekken
@@ -273,7 +272,7 @@ namespace BlackJack
 
             // kaarten delen, dealer 1, speler 2
             int dealerKaartscore;
-            string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore); // is geen speler, maar de bool staat op true om een kaart te geven
+            string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore); // is niet de speler speler, maar de bool staat op true om een kaart te geven
             dealerPunten += dealerKaartscore;
 
             TxtDealerKaarten.Text = dealerKaart; // Dealer waardes afdrukken
@@ -287,6 +286,24 @@ namespace BlackJack
 
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
             LblSpelerScore.Text = Convert.ToString(spelerPunten);
+
+            // als het geld op is, mesagebox showen
+            if (budget < 0)
+            {
+                MessageBox.Show("U bent blut!", "Einde spel", MessageBoxButton.OK);
+                // alle knoppen uit als de speler blut is
+                BtnDeel.IsEnabled = false;
+                BtnHit.IsEnabled = false;
+                BtnStand.IsEnabled = false;
+                BtnInzetPlus1.IsEnabled = false;
+                BtnInzetPlus5.IsEnabled = false;
+                BtnInzetPlus10.IsEnabled = false;
+                BtnInzetPlus25.IsEnabled = false;
+                BtnResetInzet.IsEnabled = false;
+
+                // enkel nieuw spel btn aanzetten
+                BtnNieuwSpel.IsEnabled = true;
+            }
 
         }
 
@@ -313,7 +330,7 @@ namespace BlackJack
                 string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore);
                 dealerPunten += dealerKaartscore;
 
-                TxtDealerKaarten.Text += $"\n{ dealerKaart}"; // Dealer waardes afdrukken
+                TxtDealerKaarten.Text += $"\n{dealerKaart}"; // Dealer waardes afdrukken
                 LblDealerScore.Text = Convert.ToString(dealerPunten);
 
             }
@@ -338,7 +355,7 @@ namespace BlackJack
 
         private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
         {
-            
+
             UpdateInzet(1);
         }
 
@@ -359,7 +376,7 @@ namespace BlackJack
 
         private void BtnResetInzet_Click(object sender, RoutedEventArgs e)
         {
-            inzet =     0;
+            inzet = 0;
             UpdateInzet(0);
         }
 
