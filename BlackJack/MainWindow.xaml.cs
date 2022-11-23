@@ -22,11 +22,7 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
-        int spelerPunten;
-        int dealerPunten;
-        bool isSpeler = true;
-        int budget;
-        int inzet;
+        bool isSpeler;
 
         public MainWindow()
         {
@@ -57,8 +53,8 @@ namespace BlackJack
         // start dan een nieuwe ronde
         private void Newgame()
         {
-            budget = 100;
-            inzet = 0;
+            Speler.budget = 100;
+            Speler.inzet = 0;
             UpdateBudget();
             UpdateInzet(0);
             BtnDeel.IsEnabled = true;
@@ -80,10 +76,10 @@ namespace BlackJack
             MaakVeldenLeeg();
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
-            spelerPunten = 0;
-            dealerPunten = 0;
-            LblDealerScore.Text = Convert.ToString(dealerPunten);
-            LblSpelerScore.Text = Convert.ToString(spelerPunten);
+            Speler.spelerPunten = 0;
+            Dealer.dealerPunten = 0;
+            LblDealerScore.Text = Convert.ToString(Speler.spelerPunten);
+            LblSpelerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
             // Knoppen veranderen
             BtnDeel.IsEnabled = false;
@@ -96,109 +92,6 @@ namespace BlackJack
             BtnResetInzet.IsEnabled = false;
         }
 
-        // functie voor een nieuwe kaart te genereren 
-        private string GeefKaart(bool isSpeler, int punten, out int kaartWaarde)
-        {
-
-            kaartWaarde = 0;
-            string kaart = "";
-            string kaartgetal = "";
-            Random rnd = new Random();
-            int teken = rnd.Next(1, 5);     // aantal kleuren
-            int getal = rnd.Next(1, 14);    // aantal kaarten per kleur
-
-            // switch cases voor de kaarten (moet een dicionary worden of class)
-            // Dictionary<int, string> kaartenDeck = new Dictionary<int, string>() { 1, "Harten Aas"};
-            switch (teken)
-            {
-                case 1:
-                    kaart = "Klaveren ";
-                    break;
-                case 2:
-                    kaart = "Ruiten ";
-                    break;
-                case 3:
-                    kaart = "Harten ";
-                    break;
-                case 4:
-                    kaart = "Schuppen ";
-                    break;
-                default:
-                    break;
-            }
-
-            switch (getal)
-            {
-                case 1:
-                    kaartgetal = "Aas";
-                    // Bij een aas kijken of het 10 punten moeten zijn of 1 punt
-                    if (punten <= 10)
-                    {
-                        kaartWaarde = 11;
-                    }
-                    else
-                    {
-                        kaartWaarde = 1;
-                    }
-
-                    break;
-                case 2:
-                    kaartgetal = "2";
-                    kaartWaarde = 2;
-                    break;
-                case 3:
-                    kaartgetal = "3";
-                    kaartWaarde = 3;
-                    break;
-                case 4:
-                    kaartgetal = "4";
-                    kaartWaarde = 4;
-                    break;
-                case 5:
-                    kaartgetal = "5";
-                    kaartWaarde = 5;
-                    break;
-                case 6:
-                    kaartgetal = "6";
-                    kaartWaarde = 6;
-                    break;
-                case 7:
-                    kaartgetal = "7";
-                    kaartWaarde = 7;
-                    break;
-                case 8:
-                    kaartgetal = "8";
-                    kaartWaarde = 8;
-                    break;
-                case 9:
-                    kaartgetal = "9";
-                    kaartWaarde = 9;
-                    break;
-                case 10:
-                    kaartgetal = "10";
-                    kaartWaarde = 10;
-                    break;
-                case 11:
-                    kaartgetal = "Boer";
-                    kaartWaarde = 10;
-                    break;
-                case 12:
-                    kaartgetal = "Dame";
-                    kaartWaarde = 10;
-                    break;
-                case 13:
-                    kaartgetal = "Koning";
-                    kaartWaarde = 10;
-                    break;
-                default:
-                    break;
-            }
-
-            return kaart + kaartgetal;
-        }
-
-
-        // win/lose/push functies
         private void Win()
         {
             LblResultaat.Text = "Gewonnen!";
@@ -226,13 +119,13 @@ namespace BlackJack
         // Inzetten en kapitaal functiets
         private void UpdateInzet(int i)
         {
-            if (inzet < budget)     // inzetten kan tot maximaal het budget
+            if (Speler.inzet < Speler.budget)     // inzetten kan tot maximaal het budget
             {
-                inzet += i;
-                LblInzet.Text = Convert.ToString(inzet);
+                Speler.inzet += i;
+                LblInzet.Text = Convert.ToString(Speler.inzet);
 
                 // checken of de speler minimaal 10% van zijn/haar budget heeft ingezet
-                if (inzet < budget * 0.1)
+                if (Speler.inzet < Speler.budget * 0.1)
                 {
                     LblResultaat.FontSize = 15;
                     LblResultaat.Text = "Zet minstens 10% in!";
@@ -245,7 +138,7 @@ namespace BlackJack
                     BtnDeel.IsEnabled = true;
                 }
             }
-            else if (inzet < budget)
+            else if (Speler.inzet < Speler.budget)
             {
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
             }
@@ -254,8 +147,8 @@ namespace BlackJack
 
         private void UpdateBudget()
         {
-            budget -= inzet;
-            LblBudget.Text = Convert.ToString(budget);
+            Speler.budget -= Speler.inzet;
+            LblBudget.Text = Convert.ToString(Speler.budget);
         }
 
 
@@ -270,25 +163,22 @@ namespace BlackJack
             UpdateBudget();
 
 
-            // kaarten delen, dealer 1, speler 2
-            int dealerKaartscore;
-            string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore); // is niet de speler speler, maar de bool staat op true om een kaart te geven
-            dealerPunten += dealerKaartscore;
+            // kaarten delen, dealer 1, speler 
+            string dealerKaart = KaartDeck.GeefKaart();
+            // Dealer.dealerPunten += dealerKaartscore;
 
             TxtDealerKaarten.Text = dealerKaart; // Dealer waardes afdrukken
-            LblDealerScore.Text = Convert.ToString(dealerPunten);
+            //LblDealerScore.Text = Convert.ToString(dealerPunten);
 
-            int spelerKaartScore;
-            int spelerKaart2Score;
-            string spelerKaart = GeefKaart(true, spelerPunten, out spelerKaartScore);
-            string spelerKaart2 = GeefKaart(true, spelerPunten, out spelerKaart2Score);
-            spelerPunten += spelerKaartScore + spelerKaart2Score;
+            string spelerKaart = KaartDeck.GeefKaart();
+            string spelerKaart2 = KaartDeck.GeefKaart();
+            //spelerPunten += spelerKaartScore + spelerKaart2Score;
 
             TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
-            LblSpelerScore.Text = Convert.ToString(spelerPunten);
+            //LblSpelerScore.Text = Convert.ToString(spelerPunten);
 
             // als het geld op is, mesagebox showen
-            if (budget < 0)
+            if (Speler.budget < 0)
             {
                 MessageBox.Show("U bent blut!", "Einde spel", MessageBoxButton.OK);
                 // alle knoppen uit als de speler blut is
@@ -311,12 +201,12 @@ namespace BlackJack
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
             int spelerKaartScore;
-            string spelerKaart = GeefKaart(isSpeler, spelerPunten, out spelerKaartScore);
-            spelerPunten += spelerKaartScore;
+            string spelerKaart = Convert.ToString(KaartDeck.GeefKaart());
+            //spelerPunten += spelerKaartScore;
             TxtSpelerKaarten.Text += $"\n{spelerKaart}";
-            LblSpelerScore.Text = Convert.ToString(spelerPunten);
+            //LblSpelerScore.Text = Convert.ToString(spelerPunten);
 
-            if (spelerPunten > 21)
+            if (Speler.spelerPunten > 21)
             {
                 Lose();
             }
@@ -324,30 +214,30 @@ namespace BlackJack
 
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
-            while (dealerPunten < 17)
+            while (Dealer.dealerPunten < 17)
             {
-                int dealerKaartscore;
-                string dealerKaart = GeefKaart(true, dealerPunten, out dealerKaartscore);
-                dealerPunten += dealerKaartscore;
+                //int dealerKaartscore;
+                string dealerKaart = KaartDeck.GeefKaart();
+                //Dealer.dealerPunten += dealerKaartscore;
 
                 TxtDealerKaarten.Text += $"\n{dealerKaart}"; // Dealer waardes afdrukken
-                LblDealerScore.Text = Convert.ToString(dealerPunten);
+                LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
             }
 
-            if (dealerPunten > 21)
+            if (Dealer.dealerPunten > 21)
             {
                 Win();
             }
-            else if (dealerPunten == spelerPunten)
+            else if (Dealer.dealerPunten == Speler.spelerPunten)
             {
                 Push();
             }
-            else if (dealerPunten > spelerPunten)
+            else if (Dealer.dealerPunten > Speler.spelerPunten)
             {
                 Lose();
             }
-            else if (dealerPunten < spelerPunten)
+            else if (Dealer.dealerPunten < Speler.spelerPunten)
             {
                 Win();
             }
@@ -376,7 +266,7 @@ namespace BlackJack
 
         private void BtnResetInzet_Click(object sender, RoutedEventArgs e)
         {
-            inzet = 0;
+            Speler.inzet = 0;
             UpdateInzet(0);
         }
 
