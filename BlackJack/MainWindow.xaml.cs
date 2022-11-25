@@ -74,8 +74,6 @@ namespace BlackJack
         {
             // leegmaken
             MaakVeldenLeeg();
-            BtnHit.IsEnabled = false;
-            BtnStand.IsEnabled = false;
             Speler.spelerPunten = 0;
             Dealer.dealerPunten = 0;
             LblDealerScore.Text = Convert.ToString(Speler.spelerPunten);
@@ -151,32 +149,8 @@ namespace BlackJack
             LblBudget.Text = Convert.ToString(Speler.budget);
         }
 
-
-        // Button Event Handlers
-        private void BtnDeel_Click(object sender, RoutedEventArgs e)
+        private void Blut()
         {
-            // Nieuwe ronde starten
-            // velden leeg en knoppen veranderen
-            NewRound();
-
-            // inzet van budget aftrekken
-            UpdateBudget();
-
-
-            // kaarten delen, dealer 1, speler 
-            string dealerKaart = KaartDeck.GeefKaart();
-            // Dealer.dealerPunten += dealerKaartscore;
-
-            TxtDealerKaarten.Text = dealerKaart; // Dealer waardes afdrukken
-            //LblDealerScore.Text = Convert.ToString(dealerPunten);
-
-            string spelerKaart = KaartDeck.GeefKaart();
-            string spelerKaart2 = KaartDeck.GeefKaart();
-            //spelerPunten += spelerKaartScore + spelerKaart2Score;
-
-            TxtSpelerKaarten.Text = $"{spelerKaart}\n{spelerKaart2}"; // Speler waardes afdrukken
-            //LblSpelerScore.Text = Convert.ToString(spelerPunten);
-
             // als het geld op is, mesagebox showen
             if (Speler.budget < 0)
             {
@@ -194,17 +168,44 @@ namespace BlackJack
                 // enkel nieuw spel btn aanzetten
                 BtnNieuwSpel.IsEnabled = true;
             }
+        }
+
+
+        // Button Event Handlers
+        private void BtnDeel_Click(object sender, RoutedEventArgs e)
+        {
+            // Nieuwe ronde starten
+            // velden leeg en knoppen veranderen
+            NewRound();
+
+            // inzet van budget aftrekken
+            UpdateBudget();
+
+
+            // kaarten delen, dealer 1, speler 
+            Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
+            Dealer.dealerPunten += Dealer.KaartScore;
+
+            TxtDealerKaarten.Text = Dealer.huidigeKaart; // Dealer waardes afdrukken
+            LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
+
+            Speler.huidigeKaart = KaartDeck.GeefKaart(out Speler.KaartScore);
+            Speler.spelerPunten += Speler.KaartScore;
+
+            TxtSpelerKaarten.Text = $"{Speler.huidigeKaart}\n"; // Speler waardes afdrukken
+            LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
+
+            Blut();
 
         }
 
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
-            int spelerKaartScore;
-            string spelerKaart = Convert.ToString(KaartDeck.GeefKaart());
-            //spelerPunten += spelerKaartScore;
-            TxtSpelerKaarten.Text += $"\n{spelerKaart}";
-            //LblSpelerScore.Text = Convert.ToString(spelerPunten);
+            Speler.huidigeKaart = Convert.ToString(KaartDeck.GeefKaart(out Speler.KaartScore));
+            Speler.spelerPunten += Speler.KaartScore;
+            TxtSpelerKaarten.Text += $"\n{Speler.huidigeKaart}";
+            LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
 
             if (Speler.spelerPunten > 21)
             {
@@ -216,11 +217,10 @@ namespace BlackJack
         {
             while (Dealer.dealerPunten < 17)
             {
-                //int dealerKaartscore;
-                string dealerKaart = KaartDeck.GeefKaart();
-                //Dealer.dealerPunten += dealerKaartscore;
+                Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
+                Dealer.dealerPunten += Dealer.KaartScore;
 
-                TxtDealerKaarten.Text += $"\n{dealerKaart}"; // Dealer waardes afdrukken
+                TxtDealerKaarten.Text += $"\n{Dealer.huidigeKaart}"; // Dealer waardes afdrukken
                 LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
             }

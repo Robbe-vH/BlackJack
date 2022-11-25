@@ -11,17 +11,18 @@ namespace BlackJack
     {
         public string soort;
         public string naam;
-        // public int kaartwaarde;
+        public int waarde;
 
-        public Kaart(string kaartSoort, string kaartNaam)
+        public Kaart(string kaartSoort, string kaartNaam, int kaartWaarde)
         {
             soort = kaartSoort;
             naam = kaartNaam;
+            waarde = kaartWaarde;
         }
 
         public override string ToString()
         {
-            return $"{soort} {naam}";
+            return $"{ soort } { naam }";
         }
     }
 
@@ -32,12 +33,12 @@ namespace BlackJack
         private static Kaart[] deck = new Kaart[53];
         private static string[] soorten = new string[4] { "Schuppen", "Klaveren", "Harten", "Ruiten" };
         private static string[] namen = new string[13] { "Aas", "Twee", "Drie", "Vier", "Vijf", "Zes", "Zeven", "Acht", "Negen", "Tien", "Boer", "Dame", "Koning" };
+        private static int[] waardes = new int[13] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
         private static Random rnd = new Random();
-        private static Random rndSoort = new Random();
 
         static KaartDeck()
         {
-            
+            VulDeck();
         }
 
         public static void VulDeck()
@@ -45,16 +46,19 @@ namespace BlackJack
             // deck opvullen met kaart objecten
             for (int i = 0; i < deck.Length; i++)
             {
-                deck[i] = new Kaart(soorten[rndSoort.Next(1,4)], namen[i / 13]); // aantal soorten is 4, dus de rest pakken van de deling voor het kleurnummer | 52/13 voor de naam van de kaart
+                int soort = rnd.Next(1, 4);
+                int waarde = rnd.Next(1,13);
+                deck[i] = new Kaart(soorten[soort], namen[waarde], waardes[waarde]); // aantal soorten is 4, 52/13 voor de naam van de kaart en de score
             }
         }
         
 
-        public static string GeefKaart()
+        public static string GeefKaart(out int kaartscore)
         {
-            VulDeck();
             int kaartTeller = rnd.Next(1,deck.Length);
-            return Convert.ToString(deck[kaartTeller]);
+
+            kaartscore = deck[kaartTeller].waarde;
+            return deck[kaartTeller].ToString();
         }
     }
 }
