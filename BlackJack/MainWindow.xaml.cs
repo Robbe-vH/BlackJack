@@ -22,7 +22,7 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool isSpeler;
+        //bool isSpeler;
 
         public MainWindow()
         {
@@ -40,6 +40,7 @@ namespace BlackJack
             LblInzet.Text = "";
         }
 
+        // private algemene functies voor neiuwe rondes/spellen en om de velden leeg te maken
         private void MaakVeldenLeeg()
         {
             LblResultaat.Text = "";
@@ -90,6 +91,8 @@ namespace BlackJack
             BtnResetInzet.IsEnabled = false;
         }
 
+
+        // Win lose conditie functies
         private void Win()
         {
             LblResultaat.Text = "Gewonnen!";
@@ -97,7 +100,6 @@ namespace BlackJack
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
         }
-
         private void Lose()
         {
             LblResultaat.Text = "Verloren!";
@@ -142,13 +144,11 @@ namespace BlackJack
             }
 
         }
-
         private void UpdateBudget()
         {
             Speler.budget -= Speler.inzet;
             LblBudget.Text = Convert.ToString(Speler.budget);
         }
-
         private void Blut()
         {
             // als het geld op is, mesagebox showen
@@ -198,7 +198,6 @@ namespace BlackJack
             Blut();
 
         }
-
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
@@ -212,7 +211,6 @@ namespace BlackJack
                 Lose();
             }
         }
-
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
             while (Dealer.dealerPunten < 17)
@@ -242,42 +240,34 @@ namespace BlackJack
                 Win();
             }
         }
-
         private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
         {
 
             UpdateInzet(1);
         }
-
         private void BtnInzetPlus5_Click(object sender, RoutedEventArgs e)
         {
             UpdateInzet(5);
         }
-
         private void BtnInzetPlus10_Click(object sender, RoutedEventArgs e)
         {
             UpdateInzet(10);
         }
-
         private void BtnInzetPlus25_Click(object sender, RoutedEventArgs e)
         {
             UpdateInzet(25);
         }
-
         private void BtnResetInzet_Click(object sender, RoutedEventArgs e)
         {
             Speler.inzet = 0;
             UpdateInzet(0);
         }
-
-
-        // Knop voor een nieuw spel te starten
-        // geeft speler 100 pingels
-        // zet de knoppen terug uit en maakt de velden leeg
         private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
         {
+            // Knop voor een nieuw spel te starten
+            // geeft speler 100 pingels
+            // zet de knoppen terug uit en maakt de velden leeg
             Newgame();
         }
-
     }
 }
