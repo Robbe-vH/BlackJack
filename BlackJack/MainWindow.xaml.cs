@@ -96,16 +96,40 @@ namespace BlackJack
         private void Win()
         {
             LblResultaat.Text = "Gewonnen!";
+            Speler.budget += Speler.inzet * 2;
+            LblBudget.Text = Convert.ToString(Speler.budget);
+            Speler.inzet = 0;
+            LblInzet.Text = Convert.ToString(Speler.inzet);
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
+            BtnInzetPlus1.IsEnabled = true;
+            BtnInzetPlus5.IsEnabled = true;
+            BtnInzetPlus10.IsEnabled = true;
+            BtnInzetPlus25.IsEnabled = true;
+            BtnResetInzet.IsEnabled = true;
         }
         private void Lose()
         {
             LblResultaat.Text = "Verloren!";
+            Speler.budget += Speler.inzet;
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
+            BtnInzetPlus1.IsEnabled = true;
+            BtnInzetPlus5.IsEnabled = true;
+            BtnInzetPlus10.IsEnabled = true;
+            BtnInzetPlus25.IsEnabled = true;
+            BtnResetInzet.IsEnabled = true;
+            Speler.spelerPunten = 0;
+            Dealer.dealerPunten = 0;
+            Speler.inzet = 0;
+            LblInzet.Text = Convert.ToString(Speler.inzet);
+            LblSpelerScore.Text = "0";
+            LblDealerScore.Text = "0";
+            LblBudget.Text = Convert.ToString(Speler.budget);
+            
+            Blut();
         }
         private void Push()
         {
@@ -113,6 +137,8 @@ namespace BlackJack
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
+            Speler.budget += Speler.inzet;
+            LblBudget.Text = Convert.ToString(Speler.budget);
         }
 
 
@@ -123,24 +149,17 @@ namespace BlackJack
             {
                 Speler.inzet += i;
                 LblInzet.Text = Convert.ToString(Speler.inzet);
-
-                // checken of de speler minimaal 10% van zijn/haar budget heeft ingezet
-                if (Speler.inzet < Speler.budget * 0.1)
-                {
-                    LblResultaat.FontSize = 15;
-                    LblResultaat.Text = "Zet minstens 10% in!";
-                    BtnDeel.IsEnabled = false;
-                }
-                else
-                {
-                    LblResultaat.FontSize = 25;
-                    LblResultaat.Text = "";
-                    BtnDeel.IsEnabled = true;
-                }
             }
-            else if (Speler.inzet < Speler.budget)
+            else if (Speler.inzet > Speler.budget)
             {
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
+            }
+
+            if (Speler.inzet > Speler.budget * 0.1) // kijken of de speler minstens 10% budget inzet
+            {
+                LblResultaat.FontSize = 25;
+                LblResultaat.Text = "";
+                BtnDeel.IsEnabled = true;
             }
 
         }
@@ -152,10 +171,10 @@ namespace BlackJack
         private void Blut()
         {
             // als het geld op is, mesagebox showen
-            if (Speler.budget < 0)
+            if (Speler.budget == 0)
             {
                 MessageBox.Show("U bent blut!", "Einde spel", MessageBoxButton.OK);
-                // alle knoppen uit als de speler blut is
+                // alle knoppen uit als de speler blut is en velden leegmaken
                 BtnDeel.IsEnabled = false;
                 BtnHit.IsEnabled = false;
                 BtnStand.IsEnabled = false;
@@ -164,6 +183,7 @@ namespace BlackJack
                 BtnInzetPlus10.IsEnabled = false;
                 BtnInzetPlus25.IsEnabled = false;
                 BtnResetInzet.IsEnabled = false;
+                MaakVeldenLeeg();
 
                 // enkel nieuw spel btn aanzetten
                 BtnNieuwSpel.IsEnabled = true;
@@ -174,29 +194,39 @@ namespace BlackJack
         // Button Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            // Nieuwe ronde starten
-            // velden leeg en knoppen veranderen
-            NewRound();
+            if (Speler.inzet > Speler.budget * 0.1) // kijken of de speler minstens 10% budget inzet
+            {
+                LblResultaat.FontSize = 25;
+                LblResultaat.Text = "";
+                BtnDeel.IsEnabled = true;
 
-            // inzet van budget aftrekken
-            UpdateBudget();
+                // Nieuwe ronde starten
+                // velden leeg en knoppen veranderen
+                NewRound();
+
+                // inzet van budget aftrekken
+                UpdateBudget();
 
 
-            // kaarten delen, dealer 1, speler 
-            Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
-            Dealer.dealerPunten += Dealer.KaartScore;
+                // kaarten delen, dealer 1, speler 
+                Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
+                Dealer.dealerPunten += Dealer.KaartScore;
 
-            TxtDealerKaarten.Text = Dealer.huidigeKaart; // Dealer waardes afdrukken
-            LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
+                TxtDealerKaarten.Text = Dealer.huidigeKaart; // Dealer waardes afdrukken
+                LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
-            Speler.huidigeKaart = KaartDeck.GeefKaart(out Speler.KaartScore);
-            Speler.spelerPunten += Speler.KaartScore;
+                Speler.huidigeKaart = KaartDeck.GeefKaart(out Speler.KaartScore);
+                Speler.spelerPunten += Speler.KaartScore;
 
-            TxtSpelerKaarten.Text = $"{Speler.huidigeKaart}\n"; // Speler waardes afdrukken
-            LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
-
-            Blut();
-
+                TxtSpelerKaarten.Text = $"{Speler.huidigeKaart}"; // Speler waardes afdrukken
+                LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
+            }
+            else
+            {
+                LblResultaat.FontSize = 15;
+                LblResultaat.Text = "Zet minstens 10% in!";
+                BtnDeel.IsEnabled = false;
+            }
         }
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
@@ -209,6 +239,11 @@ namespace BlackJack
             if (Speler.spelerPunten > 21)
             {
                 Lose();
+            }
+            else if (Speler.spelerPunten == 21)
+            {
+                Win();
+                LblResultaat.Text = "Blackjack!!";
             }
         }
         private void BtnStand_Click(object sender, RoutedEventArgs e)
