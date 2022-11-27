@@ -7,4 +7,214 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\HartenAas.png" />
+    <None Remove="Assets\HartenAcht.png" />
+    <None Remove="Assets\HartenBoer.png" />
+    <None Remove="Assets\HartenDrie.png" />
+    <None Remove="Assets\HartenKoning.png" />
+    <None Remove="Assets\HartenKoningin.png" />
+    <None Remove="Assets\HartenNegen.png" />
+    <None Remove="Assets\HartenTien.png" />
+    <None Remove="Assets\HartenTwee.png" />
+    <None Remove="Assets\HartenVier.png" />
+    <None Remove="Assets\HartenVijf.png" />
+    <None Remove="Assets\HartenZes.png" />
+    <None Remove="Assets\HartenZeven.png" />
+    <None Remove="Assets\KlaverenAas.png" />
+    <None Remove="Assets\KlaverenAcht.png" />
+    <None Remove="Assets\KlaverenBoer.png" />
+    <None Remove="Assets\KlaverenDrie.png" />
+    <None Remove="Assets\KlaverenKoning.png" />
+    <None Remove="Assets\KlaverenKoningin.png" />
+    <None Remove="Assets\KlaverenNegen.png" />
+    <None Remove="Assets\KlaverenTien.png" />
+    <None Remove="Assets\KlaverenTwee.png" />
+    <None Remove="Assets\KlaverenVier.png" />
+    <None Remove="Assets\KlaverenVijf.png" />
+    <None Remove="Assets\KlaverenZes.png" />
+    <None Remove="Assets\KlaverenZeven.png" />
+    <None Remove="Assets\RuitenAas.png" />
+    <None Remove="Assets\RuitenAcht.png" />
+    <None Remove="Assets\RuitenBoer.png" />
+    <None Remove="Assets\RuitenDrie.png" />
+    <None Remove="Assets\RuitenKoning.png" />
+    <None Remove="Assets\RuitenKoningin.png" />
+    <None Remove="Assets\RuitenNegen.png" />
+    <None Remove="Assets\RuitenTien.png" />
+    <None Remove="Assets\RuitenTwee.png" />
+    <None Remove="Assets\RuitenVier.png" />
+    <None Remove="Assets\RuitenVijf.png" />
+    <None Remove="Assets\RuitenZes.png" />
+    <None Remove="Assets\RuitenZeven.png" />
+    <None Remove="Assets\SchuppenAas.png" />
+    <None Remove="Assets\SchuppenAcht.png" />
+    <None Remove="Assets\SchuppenBoer.png" />
+    <None Remove="Assets\SchuppenDrie.png" />
+    <None Remove="Assets\SchuppenKoning.png" />
+    <None Remove="Assets\SchuppenKoningin.png" />
+    <None Remove="Assets\SchuppenNegen.png" />
+    <None Remove="Assets\SchuppenTien.png" />
+    <None Remove="Assets\SchuppenTwee.png" />
+    <None Remove="Assets\SchuppenVier.png" />
+    <None Remove="Assets\SchuppenVijf.png" />
+    <None Remove="Assets\SchuppenZes.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\HartenAas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenAcht.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenBoer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenDrie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenKoning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenKoningin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenNegen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenTien.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenTwee.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenVier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenVijf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenZes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\HartenZeven.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenAas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenAcht.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenBoer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenDrie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenKoning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenKoningin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenNegen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenTien.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenTwee.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenVier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenVijf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenZes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\KlaverenZeven.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenAas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenAcht.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenBoer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenDrie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenKoning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenKoningin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenNegen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenTien.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenTwee.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenVier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenVijf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenZes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\RuitenZeven.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenAas.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenAcht.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenBoer.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenDrie.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenKoning.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenKoningin.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenNegen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenTien.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenTwee.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenVier.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenVijf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SchuppenZes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

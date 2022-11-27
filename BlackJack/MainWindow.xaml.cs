@@ -44,8 +44,8 @@ namespace BlackJack
         private void MaakVeldenLeeg()
         {
             LblResultaat.Text = "";
-            TxtDealerKaarten.Clear();
-            TxtSpelerKaarten.Clear();
+            //TxtDealerKaarten.Clear();
+            //TxtSpelerKaarten.Clear();
         }
 
         // functie om een nieuw spel te starten
@@ -212,13 +212,13 @@ namespace BlackJack
                 Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
                 Dealer.dealerPunten += Dealer.KaartScore;
 
-                TxtDealerKaarten.Text = Dealer.huidigeKaart; // Dealer waardes afdrukken
+                //TxtDealerKaarten.Text = Dealer.huidigeKaart; // Dealer waardes afdrukken
                 LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
                 Speler.huidigeKaart = KaartDeck.GeefKaart(out Speler.KaartScore);
                 Speler.spelerPunten += Speler.KaartScore;
 
-                TxtSpelerKaarten.Text = $"{Speler.huidigeKaart}"; // Speler waardes afdrukken
+                //TxtSpelerKaarten.Text = $"{Speler.huidigeKaart}"; // Speler waardes afdrukken
                 LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
             }
             else
@@ -233,7 +233,7 @@ namespace BlackJack
             // zelfde als verdelen, maar dan maar 1 kaart 
             Speler.huidigeKaart = Convert.ToString(KaartDeck.GeefKaart(out Speler.KaartScore));
             Speler.spelerPunten += Speler.KaartScore;
-            TxtSpelerKaarten.Text += $"\n{Speler.huidigeKaart}";
+            //TxtSpelerKaarten.Text += $"\n{Speler.huidigeKaart}";
             LblSpelerScore.Text = Convert.ToString(Speler.spelerPunten);
 
             if (Speler.spelerPunten > 21)
@@ -253,7 +253,7 @@ namespace BlackJack
                 Dealer.huidigeKaart = KaartDeck.GeefKaart(out Dealer.KaartScore);
                 Dealer.dealerPunten += Dealer.KaartScore;
 
-                TxtDealerKaarten.Text += $"\n{Dealer.huidigeKaart}"; // Dealer waardes afdrukken
+                //TxtDealerKaarten.Text += $"\n{Dealer.huidigeKaart}"; // Dealer waardes afdrukken
                 LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
 
             }
