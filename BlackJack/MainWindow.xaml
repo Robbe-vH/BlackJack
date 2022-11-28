@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="BlackJack" Height="500" Width="900" Background="#FFF8C8DC">
+        Title="BlackJack" Height="500" Width="900" Background="#252525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -37,21 +37,47 @@
         <!--<TextBox x:Name="TxtSpelerKaarten" Grid.Column="0" Grid.Row="4"  Grid.ColumnSpan="2" Margin="20,20,20,20" Text="Hier komen de speler kaarten in te staan" IsReadOnly="True" />
         <TextBox x:Name="TxtDealerKaarten" Grid.Column="6" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="20,20,20,20" Text="Hier komen de dealer kaarten in te staan" IsReadOnly="True" />-->
 
-        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" HorizontalAlignment="Center">
-            <Image Source="Assets/HartenKoning.png" MaxHeight="120" Margin="5"/>
-            <Image Source="Assets/HartenAas.png" MaxHeight="120" Margin="5"/>
-            <Image Source="Assets/HartenAas.png" MaxHeight="120" Margin="5"/>
-        </StackPanel>
+        <ListBox Name="LBSpelerKaarten" Background="#424242" Margin="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
+                        <Image Source="{Binding ImgSource}" Height="100" Width="80" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" Text="Score Speler" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
-        <TextBlock x:Name="LblSpelerScore" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" />
-        <TextBlock x:Name="LblDealerScore" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0" FontSize="35" />
-        <TextBlock x:Name="LblResultaat" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Resultaat" FontSize="25" />
-        <TextBlock Grid.Column="0" Grid.Row="1" Text="Budget: " FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="LblBudget" Grid.Column="1" Grid.Row="1" Text="420" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="Score Dealer" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
-        <TextBlock Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Text="Inzet" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <TextBlock x:Name="LblInzet" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Text="0" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <ListBox Name="LBDealerKaarten" Background="#424242" Margin="0" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
+                        <Image Source="{Binding ImgSource}" Height="100" Width="80" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <TextBlock Foreground="#f2f2f2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" Text="Score Speler" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
+        <TextBlock Foreground="#f2f2f2" x:Name="LblSpelerScore" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" />
+        <TextBlock Foreground="#f2f2f2" x:Name="LblDealerScore" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0" FontSize="35" />
+        <TextBlock Foreground="#f2f2f2" x:Name="LblResultaat" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Resultaat" FontSize="25" />
+        <TextBlock Foreground="#f2f2f2" Grid.Column="0" Grid.Row="1" Text="Budget: " FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Foreground="#f2f2f2" x:Name="LblBudget" Grid.Column="1" Grid.Row="1" Text="420" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Foreground="#f2f2f2" Grid.Column="6" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Text="Score Dealer" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
+        <TextBlock Foreground="#f2f2f2" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Text="Inzet" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <TextBlock Foreground="#f2f2f2" x:Name="LblInzet" Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="2" Text="0" FontSize="20" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
     </Grid>
 
 </Window>
