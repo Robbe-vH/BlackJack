@@ -22,9 +22,12 @@ namespace BlackJack
     /// </summary>
     public partial class MainWindow : Window
     {
-        //bool isSpeler;
+        //TODO
+        //Schuppen Zeven, Dame kaart
+        bool isSpeler = true;
+        bool isDealer = false;
         
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -45,8 +48,8 @@ namespace BlackJack
         private void MaakVeldenLeeg()
         {
             LblResultaat.Text = "";
-            //TxtDealerKaarten.Clear();
-            //TxtSpelerKaarten.Clear();
+            LBSpelerKaarten.Items.Clear();
+            LBDealerKaarten.Items.Clear();
         }
 
         // functie om een nieuw spel te starten
@@ -77,9 +80,9 @@ namespace BlackJack
             // leegmaken
             MaakVeldenLeeg();
             Speler.SpelerPunten = 0;
-            Dealer.dealerPunten = 0;
+            Dealer.DealerPunten = 0;
             LblDealerScore.Text = Convert.ToString(Speler.SpelerPunten);
-            LblSpelerScore.Text = Convert.ToString(Dealer.dealerPunten);
+            LblSpelerScore.Text = Convert.ToString(Dealer.DealerPunten);
 
             // Knoppen veranderen
             BtnDeel.IsEnabled = false;
@@ -113,7 +116,9 @@ namespace BlackJack
         private void Lose()
         {
             LblResultaat.Text = "Verloren!";
-            Speler.Budget += Speler.Inzet;
+            LblBudget.Text = Convert.ToString(Speler.Budget);
+            Speler.Inzet = 0;
+            LblInzet.Text = Convert.ToString(Speler.Inzet);
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
@@ -122,24 +127,24 @@ namespace BlackJack
             BtnInzetPlus10.IsEnabled = true;
             BtnInzetPlus25.IsEnabled = true;
             BtnResetInzet.IsEnabled = true;
-            Speler.SpelerPunten = 0;
-            Dealer.dealerPunten = 0;
-            Speler.Inzet = 0;
-            LblInzet.Text = Convert.ToString(Speler.Inzet);
-            LblSpelerScore.Text = "0";
-            LblDealerScore.Text = "0";
-            LblBudget.Text = Convert.ToString(Speler.Budget);
             
             Blut();
         }
         private void Push()
         {
             LblResultaat.Text = "Push!";
+            Speler.Budget += Speler.Inzet;
+            LblBudget.Text = Convert.ToString(Speler.Budget);
+            Speler.Inzet = 0;
+            LblInzet.Text = Convert.ToString(Speler.Inzet);
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = true;
-            Speler.Budget += Speler.Inzet;
-            LblBudget.Text = Convert.ToString(Speler.Budget);
+            BtnInzetPlus1.IsEnabled = true;
+            BtnInzetPlus5.IsEnabled = true;
+            BtnInzetPlus10.IsEnabled = true;
+            BtnInzetPlus25.IsEnabled = true;
+            BtnResetInzet.IsEnabled = true;
         }
 
 
@@ -191,6 +196,27 @@ namespace BlackJack
             }
         }
 
+        // Nieuwe kaart geven
+        private void GeefKaart(bool isSpeler)
+        {
+            if (isSpeler)
+            {
+                LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan speler in Listbox
+                Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
+                LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
+                Speler.SpelerPunten += Speler.KaartScore;                               
+
+                LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);            // Punten afdrukken
+            }
+            else
+            {
+                LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // kaart geven aan dealer in Listbox
+                Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
+
+                LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);            // Punten afdrukken
+            }
+            
+        }
 
         // Button Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
@@ -210,18 +236,8 @@ namespace BlackJack
 
 
                 // kaarten delen, dealer 1, speler 2
-                Dealer.dealerKaarten.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));
-                Dealer.dealerPunten += Dealer.KaartScore;
-
-                LBDealerKaarten.ItemsSource = Dealer.dealerKaarten; // Dealer kaarten afdrukken
-                LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
-
-                Speler.spelerKaarten.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
-                Speler.spelerKaarten.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
-                Speler.SpelerPunten += Speler.KaartScore;
-
-                LBSpelerKaarten.ItemsSource = Speler.spelerKaarten; // speler kaarten in listbox zetten
-                LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+                GeefKaart(isDealer);
+                GeefKaart(isSpeler);
             }
             else
             {
@@ -233,10 +249,9 @@ namespace BlackJack
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
-            Speler.spelerKaarten.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
+            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
             Speler.SpelerPunten += Speler.KaartScore;
 
-            LBSpelerKaarten.ItemsSource = Speler.spelerKaarten; // speler kaarten in listbox zetten
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
 
             if (Speler.SpelerPunten > 21)
@@ -251,29 +266,24 @@ namespace BlackJack
         }
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
-            while (Dealer.dealerPunten < 17)
+            while (Dealer.DealerPunten < 17)
             {
-                Dealer.dealerKaarten.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));
-                Dealer.dealerPunten += Dealer.KaartScore;
-
-                
-                LblDealerScore.Text = Convert.ToString(Dealer.dealerPunten);
-
+                GeefKaart(isDealer);
             }
 
-            if (Dealer.dealerPunten > 21)
+            if (Dealer.DealerPunten > 21)
             {
                 Win();
             }
-            else if (Dealer.dealerPunten == Speler.SpelerPunten)
+            else if (Dealer.DealerPunten == Speler.SpelerPunten)
             {
                 Push();
             }
-            else if (Dealer.dealerPunten > Speler.SpelerPunten)
+            else if (Dealer.DealerPunten > Speler.SpelerPunten)
             {
                 Lose();
             }
-            else if (Dealer.dealerPunten < Speler.SpelerPunten)
+            else if (Dealer.DealerPunten < Speler.SpelerPunten)
             {
                 Win();
             }

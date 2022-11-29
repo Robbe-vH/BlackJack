@@ -8,13 +8,13 @@ namespace BlackJack
 {
     public class Dealer
     {
-        public static int dealerPunten;
+        public static int DealerPunten;
         public static int KaartScore;
         public static List<Kaart> dealerKaarten = new List<Kaart>();
 
         static Dealer()
         {
-            dealerPunten = 0;
+            DealerPunten = 0;
             KaartScore = 0;
         }
     }
