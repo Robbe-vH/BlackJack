@@ -1,19 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections;
-
+using System.Windows.Threading;
 
 namespace BlackJack
 {
@@ -24,10 +11,11 @@ namespace BlackJack
     {
         //TODO
         //Schuppen Zeven, Dame kaart
-        bool isSpeler = true;
-        bool isDealer = false;
-        
-        
+        readonly bool isSpeler = true;
+        readonly bool isDealer = false;
+        DispatcherTimer dptmr = new DispatcherTimer();
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -196,32 +184,61 @@ namespace BlackJack
             }
         }
 
-        // Nieuwe kaart geven
-        private void GeefKaart(bool isSpeler)
+        // Nieuwe kaart geven & timer van 1 seconde
+
+       private void VertraagdeKaartDeler(bool isSpeler)
         {
+            dptmr.Interval = TimeSpan.FromSeconds(1);
             if (isSpeler)
             {
-                LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan speler in Listbox
-                Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
-                LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
-                Speler.SpelerPunten += Speler.KaartScore;                               
-
-                LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);            // Punten afdrukken
+                dptmr.Tick += GeefSpelerKaart;
+                dptmr.Start();
             }
-            else
+            else if (!isSpeler)
             {
-                LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // kaart geven aan dealer in Listbox
-                Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
-
-                LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);            // Punten afdrukken
-            }
-            
+                dptmr.Tick += GeefDealerKaart;
+                dptmr.Start();
+            }                  
         }
 
-        // Button Event Handlers
+        private void GeefDealerKaart(object sender, EventArgs e)
+        {
+            LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // kaart geven aan dealer in Listbox
+            Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
+
+            LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
+            dptmr.Stop();
+            dptmr.IsEnabled = false;
+        }
+        private void GeefDealerKaart()                                              // Overload voor eerste kaart
+        {
+            LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // kaart geven aan dealer in Listbox
+            Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
+
+            LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
+        }
+
+        private void GeefSpelerKaart(object sender, EventArgs e)
+        {
+            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan dealer in Listbox
+            Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
+
+            LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+            dptmr.Stop();
+            dptmr.IsEnabled = false;
+        }
+        private void GeefSpelerKaart()                                              // Overload voor de eerste kaart zonder timer
+        {
+            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan dealer in Listbox
+            Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
+
+            LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+        }                                   
+
+        // Btn Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            if (Speler.Inzet > Speler.Budget * 0.1) // kijken of de speler minstens 10% budget inzet
+            if (Speler.Inzet > Speler.Budget * 0.1)                                 // kijken of de speler minstens 10% budget inzet
             {
                 LblResultaat.FontSize = 25;
                 LblResultaat.Text = "";
@@ -235,9 +252,10 @@ namespace BlackJack
                 UpdateBudget();
 
 
-                // kaarten delen, dealer 1, speler 2
-                GeefKaart(isDealer);
-                GeefKaart(isSpeler);
+                // kaarten delen, dealer 1, speler 2 met 1 sec interval
+                GeefDealerKaart();
+                GeefSpelerKaart();
+                VertraagdeKaartDeler(isSpeler); 
             }
             else
             {
@@ -249,10 +267,7 @@ namespace BlackJack
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
-            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));
-            Speler.SpelerPunten += Speler.KaartScore;
-
-            LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+            VertraagdeKaartDeler(isSpeler);
 
             if (Speler.SpelerPunten > 21)
             {
@@ -268,7 +283,7 @@ namespace BlackJack
         {
             while (Dealer.DealerPunten < 17)
             {
-                GeefKaart(isDealer);
+                VertraagdeKaartDeler(isDealer);
             }
 
             if (Dealer.DealerPunten > 21)
