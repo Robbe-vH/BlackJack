@@ -267,7 +267,7 @@ namespace BlackJack
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
             // zelfde als verdelen, maar dan maar 1 kaart 
-            VertraagdeKaartDeler(isSpeler);
+            GeefSpelerKaart();
 
             if (Speler.SpelerPunten > 21)
             {
@@ -283,7 +283,7 @@ namespace BlackJack
         {
             while (Dealer.DealerPunten < 17)
             {
-                VertraagdeKaartDeler(isDealer);
+                GeefDealerKaart();
             }
 
             if (Dealer.DealerPunten > 21)

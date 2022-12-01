@@ -33,29 +33,26 @@
         <Button x:Name="BtnInzetPlus5" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="4" Grid.Row="2" Content="+5" Margin="10, 15" Click="BtnInzetPlus5_Click"/>
         <Button x:Name="BtnInzetPlus10" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="3" Grid.Row="3" Content="+10" Margin="10, 15" Click="BtnInzetPlus10_Click"/>
         <Button x:Name="BtnInzetPlus25" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="4" Grid.Row="3" Content="+25" Margin="10, 15" Click="BtnInzetPlus25_Click"/>
-
-        <ListBox Name="LBSpelerKaarten" Background="#011526" BorderBrush="#023059" BorderThickness="0,2,2,0" Margin="0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
-            <ListBox.Resources>
-                <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="0,10,0,0"/>
-                </Style>
-            </ListBox.Resources>
-            <ItemsControl.ItemsPanel>
+        
+        <Viewbox Stretch="Uniform" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3">
+            <ListBox Name="LBSpelerKaarten" Background="#011526" BorderThickness="0" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
-                        <Image Source="{Binding ImgSource}" Height="100" Width="80" />
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
+                            <Image Source="{Binding ImgSource}" Height="100" Width="80" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
         </ListBox>
-
-        <ListBox Name="LBDealerKaarten" Background="#011526" BorderBrush="#023059" BorderThickness="2,0,0,2" Margin="0" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+        </Viewbox>
+        <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" >
+        <ListBox Name="LBDealerKaarten" Background="#011526" BorderThickness="0" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="0, 0, 0, 10"/>
@@ -75,7 +72,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        </Viewbox>
         <TextBlock Foreground="#f2f2f2" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="2" Text="Score Speler" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" />
         <TextBlock Foreground="#f2f2f2" x:Name="LblSpelerScore" Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" />
         <TextBlock Foreground="#f2f2f2" x:Name="LblDealerScore" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Text="0" FontSize="35" />
