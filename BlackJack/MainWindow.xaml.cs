@@ -13,7 +13,8 @@ namespace BlackJack
         //Schuppen Zeven, Dame kaart
         readonly bool isSpeler = true;
         readonly bool isDealer = false;
-        DispatcherTimer dptmr = new DispatcherTimer();
+        DispatcherTimer spelerDptmr = new DispatcherTimer();
+        DispatcherTimer dealerDptmr = new DispatcherTimer();
 
 
         public MainWindow()
@@ -30,6 +31,10 @@ namespace BlackJack
             BtnResetInzet.IsEnabled = false;
             LblBudget.Text = "";
             LblInzet.Text = "";
+            // timers 
+            dealerDptmr.Interval = spelerDptmr.Interval = TimeSpan.FromSeconds(1);
+            spelerDptmr.Tick += GeefSpelerKaart;
+            dealerDptmr.Tick += GeefDealerKaart;
         }
 
         // private algemene functies voor neiuwe rondes/spellen en om de velden leeg te maken
@@ -188,27 +193,23 @@ namespace BlackJack
 
        private void VertraagdeKaartDeler(bool isSpeler)
         {
-            dptmr.Interval = TimeSpan.FromSeconds(1);
             if (isSpeler)
             {
-                dptmr.Tick += GeefSpelerKaart;
-                dptmr.Start();
+                spelerDptmr.Start();
             }
             else if (!isSpeler)
             {
-                dptmr.Tick += GeefDealerKaart;
-                dptmr.Start();
+                dealerDptmr.Start();
             }                  
         }
 
         private void GeefDealerKaart(object sender, EventArgs e)
         {
+            dealerDptmr.Stop();
             LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // kaart geven aan dealer in Listbox
             Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
 
             LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
-            dptmr.Stop();
-            dptmr.IsEnabled = false;
         }
         private void GeefDealerKaart()                                              // Overload voor eerste kaart
         {
@@ -220,12 +221,11 @@ namespace BlackJack
 
         private void GeefSpelerKaart(object sender, EventArgs e)
         {
+            spelerDptmr.Stop();
             LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan dealer in Listbox
             Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
 
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
-            dptmr.Stop();
-            dptmr.IsEnabled = false;
         }
         private void GeefSpelerKaart()                                              // Overload voor de eerste kaart zonder timer
         {
