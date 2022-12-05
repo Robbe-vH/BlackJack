@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -45,6 +46,7 @@ namespace BlackJack
 
         private static void VulDeck()
         {
+            deck.Clear();
             // deck opvullen met kaart objecten
 
             for (int i = 0; i < 4; i++) // vier soorten
@@ -66,11 +68,22 @@ namespace BlackJack
         private static void VerwijderUitDeck(List<Kaart> deck, Kaart kaart)
         {
             deck.Remove(kaart);
+            if (deck.Count == 0)
+            {
+                MessageBox.Show("De kaarten worden opnieuw geschud!", "Kaarten Schudden", MessageBoxButton.OK);
+                VulDeck();
+            }
         }
 
         public static Kaart GeefKaart(out int kaartscore)
         {
-            int kaartTeller = rnd.Next(1, deck.Count);
+            if (deck.Count < 2)
+            {
+                MessageBox.Show("De kaarten worden opnieuw geschud!", "Kaarten Schudden", MessageBoxButton.OK);
+                VulDeck();
+            }
+            
+            int kaartTeller = rnd.Next(1, deck.Count - 1);
 
             kaartscore = deck[kaartTeller].waarde;
             VerwijderUitDeck(deck, deck[kaartTeller]);
