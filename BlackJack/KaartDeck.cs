@@ -31,9 +31,9 @@ namespace BlackJack
     // lijst van kaarten
     public static class KaartDeck
     {
-        private static List<Kaart> deck = new List<Kaart>();
+        public static List<Kaart> deck = new List<Kaart>();
         private static string[] soorten = new string[4] { "Schuppen", "Klaveren", "Harten", "Ruiten" };
-        private static string[] namen = new string[13] { "Aas", "Twee", "Drie", "Vier", "Vijf", "Zes", "Zeven", "Acht", "Negen", "Tien", "Boer", "Dame", "Koning" };
+        private static string[] namen = new string[13] { "Aas", "Twee", "Drie", "Vier", "Vijf", "Zes", "Zeven", "Acht", "Negen", "Tien", "Boer", "Koningin", "Koning" };
         private static int[] waardes = new int[13] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
         private static Random rnd = new Random();
 
@@ -43,7 +43,7 @@ namespace BlackJack
 
         }
 
-        public static void VulDeck()
+        private static void VulDeck()
         {
             // deck opvullen met kaart objecten
 
@@ -63,11 +63,17 @@ namespace BlackJack
             }
         }
 
+        private static void VerwijderUitDeck(List<Kaart> deck, Kaart kaart)
+        {
+            deck.Remove(kaart);
+        }
+
         public static Kaart GeefKaart(out int kaartscore)
         {
-            int kaartTeller = rnd.Next(1, 52);
+            int kaartTeller = rnd.Next(1, deck.Count);
 
             kaartscore = deck[kaartTeller].waarde;
+            VerwijderUitDeck(deck, deck[kaartTeller]);
             return deck[kaartTeller];
         }
     }

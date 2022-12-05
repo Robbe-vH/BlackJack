@@ -10,7 +10,7 @@ namespace BlackJack
     public partial class MainWindow : Window
     {
         //TODO
-        //Schuppen Zeven, Dame kaart
+        //Schuppen Zeven, Ruiten Dame, Harten Dame kaart
         readonly bool isSpeler = true;
         readonly bool isDealer = false;
         DispatcherTimer spelerDptmr = new DispatcherTimer();
@@ -189,9 +189,8 @@ namespace BlackJack
             }
         }
 
-        // Nieuwe kaart geven & timer van 1 seconde
-
-       private void VertraagdeKaartDeler(bool isSpeler)
+        // Kaart functies
+        private void VertraagdeKaartDeler(bool isSpeler)
         {
             if (isSpeler)
             {
@@ -200,7 +199,8 @@ namespace BlackJack
             else if (!isSpeler)
             {
                 dealerDptmr.Start();
-            }                  
+            }
+            UpdateAantalKaarten();
         }
 
         private void GeefDealerKaart(object sender, EventArgs e)
@@ -210,6 +210,7 @@ namespace BlackJack
             Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
 
             LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
+            UpdateAantalKaarten();
         }
         private void GeefDealerKaart()                                              // Overload voor eerste kaart
         {
@@ -217,6 +218,7 @@ namespace BlackJack
             Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
 
             LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
+            UpdateAantalKaarten();
         }
 
         private void GeefSpelerKaart(object sender, EventArgs e)
@@ -226,6 +228,7 @@ namespace BlackJack
             Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
 
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+            UpdateAantalKaarten();
         }
         private void GeefSpelerKaart()                                              // Overload voor de eerste kaart zonder timer
         {
@@ -233,7 +236,14 @@ namespace BlackJack
             Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
 
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+            UpdateAantalKaarten();
         }                                   
+
+        public void UpdateAantalKaarten()
+        {
+            LblAantalKaarten.Text = Convert.ToString(KaartDeck.deck.Count);
+        }
+
 
         // Btn Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
@@ -330,6 +340,7 @@ namespace BlackJack
             // Knop voor een nieuw spel te starten
             // geeft speler 100 pingels
             // zet de knoppen terug uit en maakt de velden leeg
+            UpdateAantalKaarten();
             Newgame();
         }
     }
