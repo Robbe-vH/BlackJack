@@ -31,13 +31,11 @@ namespace BlackJack
     // lijst van kaarten
     public static class KaartDeck
     {
-        //private static Kaart[] deck = new Kaart[53];
         private static List<Kaart> deck = new List<Kaart>();
         private static string[] soorten = new string[4] { "Schuppen", "Klaveren", "Harten", "Ruiten" };
         private static string[] namen = new string[13] { "Aas", "Twee", "Drie", "Vier", "Vijf", "Zes", "Zeven", "Acht", "Negen", "Tien", "Boer", "Dame", "Koning" };
         private static int[] waardes = new int[13] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
         private static Random rnd = new Random();
-        private static StringBuilder kaartNaam = new StringBuilder();
 
         static KaartDeck()
         {
