@@ -24,6 +24,7 @@ namespace BlackJack
             BtnHit.IsEnabled = false;
             BtnStand.IsEnabled = false;
             BtnDeel.IsEnabled = false;
+            BtnDouble.IsEnabled = false;
             BtnInzetPlus1.IsEnabled = false;
             BtnInzetPlus10.IsEnabled = false;
             BtnInzetPlus5.IsEnabled = false;
@@ -81,6 +82,7 @@ namespace BlackJack
             BtnDeel.IsEnabled = false;
             BtnHit.IsEnabled = true;
             BtnStand.IsEnabled = true;
+            BtnDouble.IsEnabled = true;
             BtnInzetPlus1.IsEnabled = false;
             BtnInzetPlus5.IsEnabled = false;
             BtnInzetPlus10.IsEnabled = false;
@@ -252,7 +254,6 @@ namespace BlackJack
             {
                 LblResultaat.FontSize = 25;
                 LblResultaat.Text = "";
-                BtnDeel.IsEnabled = true;
 
                 // Nieuwe ronde starten
                 // velden leeg en knoppen veranderen
@@ -288,6 +289,8 @@ namespace BlackJack
                 Win();
                 LblResultaat.Text = "Blackjack!!";
             }
+
+            BtnDouble.IsEnabled = false;
         }
         private void BtnStand_Click(object sender, RoutedEventArgs e)
         {
@@ -312,6 +315,8 @@ namespace BlackJack
             {
                 Win();
             }
+
+            BtnDouble.IsEnabled = false;
         }
         private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
         {
@@ -342,6 +347,12 @@ namespace BlackJack
             // zet de knoppen terug uit en maakt de velden leeg
             UpdateAantalKaarten();
             Newgame();
+        }
+
+        private void BtnDouble_Click(object sender, RoutedEventArgs e)
+        {
+            // eerst kijken of er genoeg budget is
+
         }
     }
 }
