@@ -82,7 +82,7 @@ namespace BlackJack
             BtnDeel.IsEnabled = false;
             BtnHit.IsEnabled = true;
             BtnStand.IsEnabled = true;
-            BtnDouble.IsEnabled = true;
+            BtnDouble.IsEnabled = false;
             BtnInzetPlus1.IsEnabled = false;
             BtnInzetPlus5.IsEnabled = false;
             BtnInzetPlus10.IsEnabled = false;
@@ -274,6 +274,10 @@ namespace BlackJack
                 LblResultaat.Text = "Zet minstens 10% in!";
                 BtnDeel.IsEnabled = false;
             }
+            if (Speler.Inzet < Speler.Budget / 2)           // kijken of de speler geneog budget heef tom inzet te verdubbelen
+            {
+                BtnDouble.IsEnabled = true;
+            }
         }
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
@@ -293,6 +297,36 @@ namespace BlackJack
             BtnDouble.IsEnabled = false;
         }
         private void BtnStand_Click(object sender, RoutedEventArgs e)
+        {
+            while (Dealer.DealerPunten < 17)
+            {
+                GeefDealerKaart();
+            }
+
+            if (Dealer.DealerPunten > 21)
+            {
+                Win();
+            }
+            else if (Dealer.DealerPunten == Speler.SpelerPunten)
+            {
+                Push();
+            }
+            else if (Dealer.DealerPunten > Speler.SpelerPunten)
+            {
+                Lose();
+            }
+            else if (Dealer.DealerPunten < Speler.SpelerPunten)
+            {
+                Win();
+            }
+
+            BtnDouble.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// Stand zonder argumenten. Deelt kaarten uit aan dealer tot dat hij minimaal 17 punten heeft.
+        /// </summary>
+        private void BtnStand_Click()
         {
             while (Dealer.DealerPunten < 17)
             {
@@ -351,7 +385,24 @@ namespace BlackJack
 
         private void BtnDouble_Click(object sender, RoutedEventArgs e)
         {
-            // eerst kijken of er genoeg budget is
+            // inzet verdubbelen en van budget aftrekken
+            UpdateBudget();
+            Speler.Inzet *= 2;
+            //kaart geven
+            GeefSpelerKaart();
+            // alle andere knoppen uitzetten
+
+            // kjiken of de speler gewonnen heeft of neit 
+            if (Speler.SpelerPunten > 21)
+            {
+                Lose();
+            }
+            else if (Speler.SpelerPunten == 21)
+            {
+                Win();
+                LblResultaat.Text = "Blackjack!!";
+            }
+            BtnStand_Click();
 
         }
     }
