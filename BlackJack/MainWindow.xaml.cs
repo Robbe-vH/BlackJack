@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Threading;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace BlackJack
 {
@@ -10,9 +11,8 @@ namespace BlackJack
     public partial class MainWindow : Window
     {
         //TODO
-        //Schuppen Zeven, Ruiten Dame, Harten Dame kaart
+        //Schuppen Zeven
         readonly bool isSpeler = true;
-        readonly bool isDealer = false;
         DispatcherTimer spelerDptmr = new DispatcherTimer();
         DispatcherTimer dealerDptmr = new DispatcherTimer();
 
@@ -38,7 +38,10 @@ namespace BlackJack
             dealerDptmr.Tick += GeefDealerKaart;
         }
 
-        // private algemene functies voor neiuwe rondes/spellen en om de velden leeg te maken
+        #region Nieuwe rondes en spel
+        /// <summary>
+        /// Maakt ListBoxes leeg en reset het Resultaat label.
+        /// </summary>
         private void MaakVeldenLeeg()
         {
             LblResultaat.Text = "";
@@ -46,11 +49,11 @@ namespace BlackJack
             LBDealerKaarten.Items.Clear();
         }
 
-        // functie om een nieuw spel te starten
-        // geeft de speler 100 flippo's
-        // zet de speel knoppen op enabled
-        // start dan een nieuwe ronde
+        /// <summary>
+        /// Functie om een nieuw spel te starten. <para>Geeft de speler 100 flippo's, zet de speel knoppen op enabled en start dan een nieuwe ronde.</para>
+        /// </summary>
         private void Newgame()
+
         {
             Speler.Budget = 100;
             Speler.Inzet = 0;
@@ -65,10 +68,9 @@ namespace BlackJack
             BtnNieuwSpel.IsEnabled = false;
         }
 
-
-        // functie om een nieuwe ronde te starten
-        // maakt alle velden & scores leeg en deactiveert Hit & Stand knoppen
-        // Deelt daarna kaarten uit
+        /// <summary>
+        /// Functie om een nieuwe ronde te starten. <para>Maakt alle velden en scores leeg en deactiveert hit/stand knoppen. Deelt daarna kaarten uit.</para>
+        /// </summary>
         private void NewRound()
         {
             // leegmaken
@@ -90,8 +92,9 @@ namespace BlackJack
             BtnResetInzet.IsEnabled = false;
         }
 
+        #endregion
 
-        // Win lose conditie functies
+        #region Win lose conditie functies
         private void Win()
         {
             LblResultaat.Text = "Gewonnen!";
@@ -141,9 +144,9 @@ namespace BlackJack
             BtnInzetPlus25.IsEnabled = true;
             BtnResetInzet.IsEnabled = true;
         }
+        #endregion
 
-
-        // Inzetten en kapitaal functiets
+        #region Inzetten en kapitaal functiets
         private void UpdateInzet(int i)
         {
             if (Speler.Inzet < Speler.Budget)     // inzetten kan tot maximaal het budget
@@ -190,8 +193,9 @@ namespace BlackJack
                 BtnNieuwSpel.IsEnabled = true;
             }
         }
+        #endregion
 
-        // Kaart functies
+        #region Kaart functies
         private void VertraagdeKaartDeler(bool isSpeler)
         {
             if (isSpeler)
@@ -245,9 +249,9 @@ namespace BlackJack
         {
             LblAantalKaarten.Text = Convert.ToString(KaartDeck.deck.Count);
         }
+        #endregion
 
-
-        // Btn Event Handlers
+        #region Btn Event Handlers
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
             if (Speler.Inzet > Speler.Budget * 0.1)                                 // kijken of de speler minstens 10% budget inzet
@@ -324,7 +328,7 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Stand zonder argumenten. Deelt kaarten uit aan dealer tot dat hij minimaal 17 punten heeft.
+        /// Stand functie zonder argumenten. <para>Deelt kaarten uit aan dealer tot dat hij minimaal 17 punten heeft.</para>
         /// </summary>
         private void BtnStand_Click()
         {
@@ -406,4 +410,5 @@ namespace BlackJack
 
         }
     }
+    #endregion
 }

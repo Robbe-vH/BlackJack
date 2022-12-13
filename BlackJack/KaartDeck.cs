@@ -35,7 +35,7 @@ namespace BlackJack
         public static List<Kaart> deck = new List<Kaart>();
         private static string[] soorten = new string[4] { "Schuppen", "Klaveren", "Harten", "Ruiten" };
         private static string[] namen = new string[13] { "Aas", "Twee", "Drie", "Vier", "Vijf", "Zes", "Zeven", "Acht", "Negen", "Tien", "Boer", "Koningin", "Koning" };
-        private static int[] waardes = new int[13] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
+        private static int[] waardes = new int[13] { 11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10 };
         private static Random rnd = new Random();
 
         static KaartDeck()
@@ -75,6 +75,11 @@ namespace BlackJack
             }
         }
 
+        /// <summary>
+        /// Geeft een kaart
+        /// </summary>
+        /// <param name="kaartscore">Outgoing parameter, geeft de score van de kaart terug als integer getal.</param>
+        /// <returns></returns>
         public static Kaart GeefKaart(out int kaartscore)
         {
             if (deck.Count < 2)
