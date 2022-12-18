@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace BlackJack
 {
@@ -43,7 +40,9 @@ namespace BlackJack
             VulDeck();
 
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private static void VulDeck()
         {
             deck.Clear();
@@ -64,7 +63,12 @@ namespace BlackJack
                 }
             }
         }
-
+        /// <summary>
+        /// Haalt kaart uit Lijst <c>deck</c>
+        /// <para>Vult Lijst <c>deck</c> opnieuw met Kaartobjecten <c>kaart</c> als <c>deck.Count == 0.</c></para>
+        /// </summary>
+        ///  <param name="deck">List van Kaart objecten</param>
+        /// <param name="kaart"></param>
         private static void VerwijderUitDeck(List<Kaart> deck, Kaart kaart)
         {
             deck.Remove(kaart);
@@ -76,10 +80,10 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// Geeft een kaart
+        /// 
         /// </summary>
-        /// <param name="kaartscore">Outgoing parameter, geeft de score van de kaart terug als integer getal.</param>
-        /// <returns></returns>
+        /// <param name="kaartscore">Outgoing parameter, geeft de score van de kaart terug als Int32.</param>
+        /// <returns>1 kaartobject</returns>
         public static Kaart GeefKaart(out int kaartscore)
         {
             if (deck.Count < 2)
@@ -87,7 +91,7 @@ namespace BlackJack
                 MessageBox.Show("De kaarten worden opnieuw geschud!", "Kaarten Schudden", MessageBoxButton.OK);
                 VulDeck();
             }
-            
+
             int kaartTeller = rnd.Next(1, deck.Count - 1);
 
             kaartscore = deck[kaartTeller].waarde;
