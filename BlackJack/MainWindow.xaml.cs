@@ -1,21 +1,27 @@
 using System;
 using System.Windows;
 using System.Windows.Threading;
-using static System.Formats.Asn1.AsnWriter;
+using System.Windows.Controls;
+using System.Collections.Generic;
 
 namespace BlackJack
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Hoofd programma logica
+    /// Bevat de functies voor Nieuwe rondes en spellen,
+    /// Win en Lose condities,
+    /// Inzet en Kapitaal,
+    /// Kaartdeling en de Event Handlers voor de buttons.
     /// </summary>
     public partial class MainWindow : Window
     {
         //TODO
         //Schuppen Zeven
-        // foute kaartscores 
         readonly bool isSpeler = true;
-        DispatcherTimer spelerDptmr = new DispatcherTimer();
-        DispatcherTimer dealerDptmr = new DispatcherTimer();
+        private DispatcherTimer spelerDptmr = new DispatcherTimer();
+        private DispatcherTimer dealerDptmr = new DispatcherTimer();
+        private HistoriekWindow historiekWindow = new HistoriekWindow();
+        public ListBoxItem[] historiekArray = new ListBoxItem[10];
 
 
         public MainWindow()
@@ -33,6 +39,7 @@ namespace BlackJack
             BtnResetInzet.IsEnabled = false;
             LblBudget.Text = "";
             LblInzet.Text = "";
+            //MnItHistoriek.Header = string.Empty;
             // timers 
             dealerDptmr.Interval = spelerDptmr.Interval = TimeSpan.FromSeconds(1);
             spelerDptmr.Tick += GeefSpelerKaart;
@@ -41,7 +48,7 @@ namespace BlackJack
 
         #region Nieuwe rondes en spel
         /// <summary>
-        /// Maakt ListBoxes leeg en reset het Resultaat label.
+        /// Maakt <c>LBSpelerkaarten</c> en <c>LBDealerKaarten</c> leeg en reset <c>LblResultaat</c>.
         /// </summary>
         private void MaakVeldenLeeg()
         {
@@ -56,6 +63,7 @@ namespace BlackJack
         private void Newgame()
 
         {
+            KaartDeck.VulDeck();
             Speler.Budget = 100;
             Speler.Inzet = 0;
             UpdateBudget();
@@ -95,12 +103,16 @@ namespace BlackJack
 
         #endregion
 
+
         #region Win lose conditie functies
+
         /// <summary>
         /// Tesktlabels worden veranderd, <c>Speler.Budget</c> wordt verhoogd met dubbel <c>Speler.Inzet</c>, speelknoppen worden uitgezet en inzetknoppen aangezet.
         /// </summary>
         private void Win()
         {
+            UpdateHistoriek('+');
+
             LblResultaat.Text = "Gewonnen!";
             Speler.Budget += Speler.Inzet * 2;
             LblBudget.Text = Convert.ToString(Speler.Budget);
@@ -115,11 +127,14 @@ namespace BlackJack
             BtnInzetPlus25.IsEnabled = true;
             BtnResetInzet.IsEnabled = true;
         }
+
         /// <summary>
         /// Tesktlabels worden veranderd, <c>Speler.Budget</c> wordt verminderd met <c>Speler.Inzet</c>, speelknoppen worden uitgezet en inzetknoppen aangezet.
         /// </summary>
         private void Lose()
         {
+            UpdateHistoriek('-');
+
             LblResultaat.Text = "Verloren!";
             LblBudget.Text = Convert.ToString(Speler.Budget);
             Speler.Inzet = 0;
@@ -135,11 +150,14 @@ namespace BlackJack
             
             Blut();
         }
+
         /// <summary>
         /// Tesktlabels worden veranderd, <c>Speler.Budget</c> wordt terug verhoogd <c>Speler.Inzet</c>, speelknoppen worden uitgezet en inzetknoppen aangezet.
         /// </summary>
         private void Push()
         {
+            UpdateHistoriek(' ');
+
             LblResultaat.Text = "Push!";
             Speler.Budget += Speler.Inzet;
             LblBudget.Text = Convert.ToString(Speler.Budget);
@@ -154,7 +172,20 @@ namespace BlackJack
             BtnInzetPlus25.IsEnabled = true;
             BtnResetInzet.IsEnabled = true;
         }
+
+        private void UpdateHistoriek(char c)
+        {
+            MnItHistoriek.Header = $"{c}{ Convert.ToString(Speler.Inzet) } - { Convert.ToString(Speler.SpelerPunten) }/{ Convert.ToString(Dealer.DealerPunten) } ";
+            // listboxitem maken en toevoegen aan historieklijst
+            ListBoxItem laatstGespeeldeHand = new ListBoxItem();
+            laatstGespeeldeHand.Content = $"ronde nummer Gewonnen bedrag scorespeler/scoredealer";
+            ListBoxItem laatste = historiekArray[historiekArray.Length - 1];
+            Array.Copy(historiekArray, 0, historiekArray, 1, historiekArray.Length - 1);
+            historiekArray[0] = laatstGespeeldeHand;
+            
+        }
         #endregion
+
 
         #region Inzetten en kapitaal functiets
         /// <summary>
@@ -217,7 +248,9 @@ namespace BlackJack
         }
         #endregion
 
+
         #region Kaart functies
+
         /// <summary>
         /// Start <c>spelerDptmr</c> of <c>dealerDptmr</c>.
         /// </summary>
@@ -237,28 +270,24 @@ namespace BlackJack
 
         /// <summary>
         /// Stop <c>speler.Dptmr</c>.
-        /// Voegt een <c>Kaart</c> toe aan <c>LBDealerKaarten</c>. Voegt daarna <c>Dealer.KaartScore</c> toe aan <c>Dealer.DealerPunten</c>.
+        /// Voegt een <c>Kaart</c> toe aan <c>LBDealerKaarten</c>. Voegt daarna <c>kaartScore</c> toe aan <c>Dealer.DealerPunten</c>.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GeefDealerKaart(object sender, EventArgs e)
         {
             dealerDptmr.Stop();
-            LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));  // 
-            Dealer.DealerPunten += Dealer.KaartScore;                               // punten aan de score toevoegen
-
-            LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
-            UpdateAantalKaarten();
+            GeefDealerKaart();
         }
         
         /// <summary>
-        /// Voegt een <c>Kaart</c> toe aan <c>LBDealerKaarten</c>. Voegt daarna <c>Dealer.KaartScore</c> toe aan <c>Dealer.DealerPunten</c>.
+        /// Voegt een <c>Kaart</c> toe aan <c>LBDealerKaarten</c>. Voegt daarna <c>kaartScore</c> toe aan <c>Dealer.DealerPunten</c>.
         /// <para>Overload functie zonder argumenten</para>
         /// </summary>
         private void GeefDealerKaart()                                              
         {
-            LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out Dealer.KaartScore));
-            Dealer.DealerPunten += Dealer.KaartScore;
+            LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out int kaartScore));
+            Dealer.DealerPunten += kaartScore;
 
             LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
             UpdateAantalKaarten();
@@ -267,32 +296,67 @@ namespace BlackJack
 
         /// <summary>
         /// Stop <c>speler.Dptmr</c>.
-        /// <para>Voegt een <c>Kaart</c> toe aan <c>LBSpelerKaarten</c>. Voegt daarna <c>Speler.KaartScore</c> toe aan <c>Speler.SpelerPunten</c>.</para>
+        /// <para>Voegt een <c>Kaart</c> toe aan <c>LBSpelerKaarten</c>. Voegt daarna <c>kaartScore</c> toe aan <c>Speler.SpelerPunten</c>.</para>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void GeefSpelerKaart(object sender, EventArgs e)
         {
             spelerDptmr.Stop();
-            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan dealer in Listbox
-            Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
-
-            LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
-            UpdateAantalKaarten();
+            GeefSpelerKaart();
         }
+
         /// <summary>
-        /// Voegt een <c>Kaart</c> toe aan <c>LBSpelerKaarten</c>. Voegt daarna <c>Speler.KaartScore</c> toe aan <c>Speler.SpelerPunten</c>.
+        /// Voegt een <c>Kaart</c> toe aan <c>LBSpelerKaarten</c>. Voegt daarna <c>kaartScore</c> toe aan <c>Speler.SpelerPunten</c>.
         /// <para>Overload functie zonder argumenten</para>
         /// </summary>
-        private void GeefSpelerKaart()                                              // Overload voor de eerste kaart zonder timer
+        private void GeefSpelerKaart()
         {
-            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out Speler.KaartScore));  // kaart geven aan dealer in Listbox
-            Speler.SpelerPunten += Speler.KaartScore;                               // punten aan de score toevoegen
+            //Kaart kaartObject = KaartDeck.GeefKaart(out int kaartScore);
+            //ListBoxItem listboxItemKaart = new ListBoxItem();
+            //listboxItemKaart.Content = kaartObject.Foto;
+            LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out int kaartScore));
+            Speler.SpelerPunten += kaartScore;
 
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
+            if (Speler.SpelerPunten > 21)
+            {
+                Lose();
+            }
+            else if (Speler.SpelerPunten == 21)
+            {
+                Win();
+                LblResultaat.Text = "Blackjack!!";
+            }
+            else
+            {
+                BtnHit.IsEnabled = true;
+            }
             UpdateAantalKaarten();
+            
         }
 
+        ///// <summary>
+        ///// Dit zou een omgedraaide kaart moeten toegvoegen aan de Speler Listbox
+        ///// </summary>
+        //private void GeefSpelerHorizontaleKaart()
+        //{
+        //    // Dus, eerst een kaart geven
+        //    Kaart gewoneKaart = KaartDeck.GeefKaart(out int kaartScore);
+
+        //    // de foto van de gegeven kaart omdraaien
+        //    BitmapImage gedraaideKaartFoto = new BitmapImage();
+        //    gedraaideKaartFoto.BeginInit();
+        //    gedraaideKaartFoto.UriSource = new Uri(gewoneKaart.ImgSource);
+        //    gedraaideKaartFoto.Rotation = Rotation.Rotate90;
+        //    gedraaideKaartFoto.EndInit();
+
+
+
+        //    Kaart gedraaideKaart = gewoneKaart;
+        //    // de foto terug in de listbox steken
+        //    LBSpelerKaarten.Items.Add(gedraaideKaart);
+        //}
 
         /// <summary>
         /// Verandert <c>LblaantalKaarten</c> met <c>KaartDeck.deck.Count</c>
@@ -303,7 +367,9 @@ namespace BlackJack
         }
         #endregion
 
+
         #region Btn Event Handlers
+
         /// <summary>
         /// Kijkt of <c>Speler.Inzet</c> groter is dan 10% van <c>Speler.Budget</c>.
         /// <para>
@@ -315,7 +381,7 @@ namespace BlackJack
         /// <para>Als <c>Speler.Budget</c> groter is dan het dubbele van <c>Speler.Inzet</c>, wordt <c>BtnDouble</c> aangezet.</para>
         /// </summary>
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
-        {
+        {        
             if (Speler.Inzet > Speler.Budget * 0.1)
             {
                 LblResultaat.FontSize = 25;
@@ -327,6 +393,7 @@ namespace BlackJack
 
                 GeefDealerKaart();
                 GeefSpelerKaart();
+                BtnHit.IsEnabled = false;
                 VertraagdeKaartDeler(isSpeler); 
             }
             else
@@ -346,18 +413,7 @@ namespace BlackJack
         /// </summary>
         private void BtnHit_Click(object sender, RoutedEventArgs e)
         {
-            // zelfde als verdelen, maar dan maar 1 kaart 
             GeefSpelerKaart();
-
-            if (Speler.SpelerPunten > 21)
-            {
-                Lose();
-            }
-            else if (Speler.SpelerPunten == 21)
-            {
-                Win();
-                LblResultaat.Text = "Blackjack!!";
-            }
 
             BtnDouble.IsEnabled = false;
         }
@@ -449,8 +505,8 @@ namespace BlackJack
         /// </summary>
         private void BtnNieuwSpel_Click(object sender, RoutedEventArgs e)
         {
-            UpdateAantalKaarten();
             Newgame();
+            UpdateAantalKaarten();
         }
 
         /// <summary>
@@ -466,7 +522,7 @@ namespace BlackJack
             UpdateBudget();
             Speler.Inzet *= 2;
 
-            GeefSpelerKaart();
+            //GeefSpelerHorizontaleKaart();
 
             if (Speler.SpelerPunten > 21)
             {
@@ -478,6 +534,16 @@ namespace BlackJack
                 LblResultaat.Text = "Blackjack!!";
             }
             BtnStand_Click();
+        }
+
+        /// <summary>
+        /// Laat het Historiek.xaml venster zien
+        /// </summary>
+        private void MnItHistoriek_Click(object sender, RoutedEventArgs e)
+        {
+            
+            // window op het scherm laten zien
+            historiekWindow.Show();
         }
     }
     #endregion

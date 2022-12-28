@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace BlackJack
 {
@@ -10,8 +13,10 @@ namespace BlackJack
         public string soort = "";
         public string naam = "";
         public int waarde = 0;
+        public BitmapImage Foto = new BitmapImage();
         public string ImgSource { get; set; }
         public string Titel { get; set; }
+
 
         public Kaart()
         {
@@ -26,7 +31,11 @@ namespace BlackJack
     }
 
 
-    // lijst van kaarten
+    /// <summary>
+    /// Klasse met Lijst van <c>Kaart</c>.
+    /// <para>Eigenschappen <c>soorten</c>, <c>namen</c> en <c>waardes</c>.</para>
+    /// <para>Functies <c>Vuldeck</c>, <c>VerwijderUitDeck</c> en <c>GeefKaart</c>.</para>
+    /// </summary>
     public static class KaartDeck
     {
         public static List<Kaart> deck = new List<Kaart>();
@@ -40,10 +49,11 @@ namespace BlackJack
             VulDeck();
 
         }
+
         /// <summary>
         /// 
         /// </summary>
-        private static void VulDeck()
+        public static void VulDeck()
         {
             deck.Clear();
             // deck opvullen met kaart objecten
@@ -52,17 +62,24 @@ namespace BlackJack
             {
                 for (int j = 0; j < 13; j++) // dertien waardes
                 {
+                    //BitmapImage biFoto = new BitmapImage();
+                    //biFoto.BeginInit();
+                    //string imgpath = $"/Assets/{soorten[i]}{namen[j]}.png";
+                    //biFoto.UriSource = new Uri(imgpath, UriKind.RelativeOrAbsolute);
+                    //biFoto.EndInit();
                     deck.Add(new Kaart()
                     {
                         soort = soorten[i],
                         naam = namen[j],
+                        ImgSource = $"/Assets/{soorten[i]}{namen[j]}.png",
                         waarde = waardes[j],
-                        ImgSource = $"Assets/{soorten[i]}{namen[j]}.png",
+                        //Foto = biFoto,
                         Titel = $"{soorten[i]} {namen[j]}"
                     });
                 }
             }
         }
+
         /// <summary>
         /// Haalt kaart uit Lijst <c>deck</c>
         /// <para>Vult Lijst <c>deck</c> opnieuw met Kaartobjecten <c>kaart</c> als <c>deck.Count == 0.</c></para>
@@ -80,12 +97,15 @@ namespace BlackJack
         }
 
         /// <summary>
-        /// 
+        /// Maakt een tijdelijke <c>Kaart temp</c>, kiest daarna met een <c>Random</c> een kaart uit <c>deck</c>.
+        /// <para>Als de <c>Kaart.Count</c> kleiner is dan 2, worden de kaarten opnieuw gevuld met functie </para>
         /// </summary>
         /// <param name="kaartscore">Outgoing parameter, geeft de score van de kaart terug als Int32.</param>
         /// <returns>1 kaartobject</returns>
         public static Kaart GeefKaart(out int kaartscore)
         {
+            Kaart temp = new Kaart();
+
             if (deck.Count < 2)
             {
                 MessageBox.Show("De kaarten worden opnieuw geschud!", "Kaarten Schudden", MessageBoxButton.OK);
@@ -93,10 +113,11 @@ namespace BlackJack
             }
 
             int kaartTeller = rnd.Next(1, deck.Count - 1);
+            temp = deck[kaartTeller];
 
-            kaartscore = deck[kaartTeller].waarde;
+            kaartscore = temp.waarde;
             VerwijderUitDeck(deck, deck[kaartTeller]);
-            return deck[kaartTeller];
+            return temp;
         }
     }
 }
