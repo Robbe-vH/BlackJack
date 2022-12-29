@@ -10,6 +10,7 @@ namespace BlackJack
     {
         public static int DealerPunten;
         public static int KaartScore;
+        public static int aantalAzen;
         public static List<Kaart> dealerKaarten = new List<Kaart>();
 
         static Dealer()

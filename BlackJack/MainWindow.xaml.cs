@@ -92,6 +92,8 @@ namespace BlackJack
             MaakVeldenLeeg();
             Speler.SpelerPunten = 0;
             Dealer.DealerPunten = 0;
+            Speler.aantalAzen = 0;
+            Dealer.aantalAzen = 0;
             LblDealerScore.Text = Convert.ToString(Speler.SpelerPunten);
             LblSpelerScore.Text = Convert.ToString(Dealer.DealerPunten);
 
@@ -293,7 +295,11 @@ namespace BlackJack
         private void GeefDealerKaart()
         {
             LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out int kaartScore));
-            Dealer.DealerPunten += kaartScore;
+            if (kaartScore == 11) Dealer.aantalAzen++;
+            if (Dealer.DealerPunten > 10) Dealer.DealerPunten += kaartScore - Dealer.aantalAzen * 10;
+            else Dealer.DealerPunten += kaartScore;
+
+
 
             LblDealerScore.Text = Convert.ToString(Dealer.DealerPunten);
             UpdateAantalKaarten();
@@ -322,7 +328,10 @@ namespace BlackJack
             //ListBoxItem listboxItemKaart = new ListBoxItem();
             //listboxItemKaart.Content = kaartObject.Foto;
             LBSpelerKaarten.Items.Add(KaartDeck.GeefKaart(out int kaartScore));
-            Speler.SpelerPunten += kaartScore;
+            if (kaartScore == 11) Speler.aantalAzen++;
+            if (Speler.SpelerPunten > 10) Speler.SpelerPunten += kaartScore - Speler.aantalAzen * 10;
+            else Speler.SpelerPunten += kaartScore;
+
 
             LblSpelerScore.Text = Convert.ToString(Speler.SpelerPunten);
             if (Speler.SpelerPunten > 21)

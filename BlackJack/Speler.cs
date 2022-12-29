@@ -13,6 +13,7 @@ namespace BlackJack
         public static int Budget;
         public static int Inzet;
         public static int KaartScore;
+        public static int aantalAzen;
         public static ListBoxItem[] historiekArray = new ListBoxItem[10];
 
         public static List<Kaart> spelerKaarten = new List<Kaart>();
