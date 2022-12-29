@@ -20,6 +20,7 @@ namespace BlackJack
         readonly bool isSpeler = true;
         private DispatcherTimer spelerDptmr = new DispatcherTimer();
         private DispatcherTimer dealerDptmr = new DispatcherTimer();
+        private DispatcherTimer tijdDptmr = new DispatcherTimer();
 
 
         public MainWindow()
@@ -39,9 +40,16 @@ namespace BlackJack
             LblInzet.Text = "";
             //MnItHistoriek.Header = string.Empty;
             // timers 
-            dealerDptmr.Interval = spelerDptmr.Interval = TimeSpan.FromSeconds(1);
+            dealerDptmr.Interval = spelerDptmr.Interval = tijdDptmr.Interval = TimeSpan.FromSeconds(1);
             spelerDptmr.Tick += GeefSpelerKaart;
             dealerDptmr.Tick += GeefDealerKaart;
+            tijdDptmr.Tick += TijdDptmr_Tick;
+            tijdDptmr.Start();
+        }
+
+        private void TijdDptmr_Tick(object? sender, EventArgs e)
+        {
+            LblTijdstip.Content = DateTime.Now.ToLongTimeString();
         }
 
         #region Nieuwe rondes en spel
