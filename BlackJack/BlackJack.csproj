@@ -34,6 +34,7 @@
     <None Remove="Assets\KlaverenVijf.png" />
     <None Remove="Assets\KlaverenZes.png" />
     <None Remove="Assets\KlaverenZeven.png" />
+    <None Remove="Assets\Red_Velvet_BG.jpg" />
     <None Remove="Assets\RuitenAas.png" />
     <None Remove="Assets\RuitenAcht.png" />
     <None Remove="Assets\RuitenBoer.png" />
@@ -213,6 +214,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\SchuppenZes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Red_Velvet_BG.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

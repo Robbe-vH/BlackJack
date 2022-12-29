@@ -21,6 +21,7 @@ namespace BlackJack
         private DispatcherTimer spelerDptmr = new DispatcherTimer();
         private DispatcherTimer dealerDptmr = new DispatcherTimer();
         private DispatcherTimer tijdDptmr = new DispatcherTimer();
+        private int rondeTeller;
 
 
         public MainWindow()
@@ -72,6 +73,7 @@ namespace BlackJack
             KaartDeck.VulDeck();
             Speler.Budget = 100;
             Speler.Inzet = 0;
+            rondeTeller = 0;
             UpdateBudget();
             UpdateInzet(0);
             BtnDeel.IsEnabled = true;
@@ -88,7 +90,7 @@ namespace BlackJack
         /// </summary>
         private void NewRound()
         {
-            // leegmaken
+            rondeTeller++;
             MaakVeldenLeeg();
             Speler.SpelerPunten = 0;
             Dealer.DealerPunten = 0;
@@ -97,7 +99,6 @@ namespace BlackJack
             LblDealerScore.Text = Convert.ToString(Speler.SpelerPunten);
             LblSpelerScore.Text = Convert.ToString(Dealer.DealerPunten);
 
-            // Knoppen veranderen
             BtnDeel.IsEnabled = false;
             BtnHit.IsEnabled = true;
             BtnStand.IsEnabled = true;
@@ -184,10 +185,8 @@ namespace BlackJack
         private void UpdateHistoriek(char c)
         {
             MnItHistoriek.Header = $"{c}{Convert.ToString(Speler.Inzet)} - {Convert.ToString(Speler.SpelerPunten)}/{Convert.ToString(Dealer.DealerPunten)} ";
-            // listboxitem maken en toevoegen aan historieklijst
-            ListBoxItem laatstGespeeldeHand = new ListBoxItem();
-            laatstGespeeldeHand.Content = $"ronde nummer Gewonnen bedrag scorespeler/scoredealer";
-            ListBoxItem laatste = Speler.historiekArray[Speler.historiekArray.Length - 1];
+            // toevoegen aan historieklijst
+            string laatstGespeeldeHand = $"Ronde: { rondeTeller.ToString() } Bedrag:{c}{Speler.Inzet} euro  Speler Punten:{Convert.ToString(Speler.SpelerPunten)} Dealer Punten: {Convert.ToString(Dealer.DealerPunten)}";
             Array.Copy(Speler.historiekArray, 0, Speler.historiekArray, 1, Speler.historiekArray.Length - 1);
             Speler.historiekArray[0] = laatstGespeeldeHand;
 

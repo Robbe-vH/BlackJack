@@ -31,6 +31,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Image Source="./Assets/Red_Velvet_BG.jpg" Grid.ColumnSpan="9" Grid.RowSpan="5" Stretch="UniformToFill"/>
             <Button x:Name="BtnHit" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="5" Grid.Row="4"  Content="Hit"  Margin="20 50" Click="BtnHit_Click" />
             <Button x:Name="BtnStand" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="6" Grid.Row="4" Content="Stand"  Margin="20, 50" Click="BtnStand_Click"/>
             <Button x:Name="BtnDeel" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="8" Grid.Row="4" Content="Deel"  Margin="20,50" Click="BtnDeel_Click"/>
@@ -43,7 +44,7 @@
             <Button x:Name="BtnInzetPlus25" Background="#91BBF2" Foreground="#f2f2f2" Grid.Column="4" Grid.Row="3" Content="+25" Margin="10, 15" Click="BtnInzetPlus25_Click"/>
 
             <Viewbox Stretch="Uniform" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
-                <ListBox Name="LBSpelerKaarten" Background="#011526" BorderThickness="0" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListBox Name="LBSpelerKaarten" Background="Transparent" BorderBrush="Transparent" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />
@@ -54,19 +55,13 @@
                             <StackPanel Orientation="Vertical">
                                 <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
                                 <Image Source="{Binding ImgSource}" Height="100" Width="80" />
-                                <!--Als het niet werkt, terug op "IMGSource" zetten-->
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
             </Viewbox>
-            <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="3" Grid.RowSpan="2" >
-                <ListBox Name="LBDealerKaarten" Background="#011526" BorderThickness="0" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
-                    <ListBox.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="0, 0, 0, 10"/>
-                        </Style>
-                    </ListBox.Resources>
+            <Viewbox Stretch="Uniform" Grid.Row="0" Grid.Column="6" Grid.ColumnSpan="3" Grid.RowSpan="2" >
+                <ListBox Name="LBDealerKaarten" Background="Transparent" BorderBrush="Transparent" Margin="0" ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData ItemCount=5}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal" />

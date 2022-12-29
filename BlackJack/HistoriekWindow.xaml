@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
-        Title="HistoriekWindow" Height="450" Width="400">
+        Title="HistoriekWindow" Height="350" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
@@ -16,6 +16,23 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <TextBlock Text="Historiek" FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="139,0,0,0"/>
-        <ListBox Name="LbxHistoriek" Grid.ColumnSpan="2" Margin="0,100,0,0" Grid.RowSpan="2"/>
+        
+        <ListBox Name="LbxHistoriek" Grid.ColumnSpan="2" Margin="0,100,0,0" Grid.RowSpan="2" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+            <ListBoxItem Content="test"/>
+        </ListBox>
     </Grid>
 </Window>

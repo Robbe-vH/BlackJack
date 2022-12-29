@@ -30,7 +30,8 @@ namespace BlackJack
             for (int i = 0; i < Speler.historiekArray.Length - 1; i++)
             {
                 ListBoxItem temp = new ListBoxItem();
-                temp = Speler.historiekArray[i];
+                temp.IsHitTestVisible = false;
+                temp.Content = Speler.historiekArray[i];
                 LbxHistoriek.Items.Add(temp);
             }
         }
