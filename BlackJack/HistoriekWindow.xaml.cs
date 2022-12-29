@@ -19,15 +19,19 @@ namespace BlackJack
     /// </summary>
     public partial class HistoriekWindow : Window
     {
-        MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-
         public HistoriekWindow()
         {
             InitializeComponent();
-            // lijst van listboxitems in lbx laden
-            for (int i = 0; i < mainWindow.historiekArray.Length - 1; i++)
+
+            // empty the listbox
+            LbxHistoriek.Items.Clear();
+
+            // Populate listbox with array items
+            for (int i = 0; i < Speler.historiekArray.Length - 1; i++)
             {
-                LbxHistoriek.Items.Add(mainWindow.historiekArray[i]);
+                ListBoxItem temp = new ListBoxItem();
+                temp = Speler.historiekArray[i];
+                LbxHistoriek.Items.Add(temp);
             }
         }
     }

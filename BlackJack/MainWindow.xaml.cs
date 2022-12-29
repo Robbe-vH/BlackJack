@@ -20,8 +20,6 @@ namespace BlackJack
         readonly bool isSpeler = true;
         private DispatcherTimer spelerDptmr = new DispatcherTimer();
         private DispatcherTimer dealerDptmr = new DispatcherTimer();
-        private HistoriekWindow historiekWindow = new HistoriekWindow();
-        public ListBoxItem[] historiekArray = new ListBoxItem[10];
 
 
         public MainWindow()
@@ -147,7 +145,7 @@ namespace BlackJack
             BtnInzetPlus10.IsEnabled = true;
             BtnInzetPlus25.IsEnabled = true;
             BtnResetInzet.IsEnabled = true;
-            
+
             Blut();
         }
 
@@ -175,14 +173,14 @@ namespace BlackJack
 
         private void UpdateHistoriek(char c)
         {
-            MnItHistoriek.Header = $"{c}{ Convert.ToString(Speler.Inzet) } - { Convert.ToString(Speler.SpelerPunten) }/{ Convert.ToString(Dealer.DealerPunten) } ";
+            MnItHistoriek.Header = $"{c}{Convert.ToString(Speler.Inzet)} - {Convert.ToString(Speler.SpelerPunten)}/{Convert.ToString(Dealer.DealerPunten)} ";
             // listboxitem maken en toevoegen aan historieklijst
             ListBoxItem laatstGespeeldeHand = new ListBoxItem();
             laatstGespeeldeHand.Content = $"ronde nummer Gewonnen bedrag scorespeler/scoredealer";
-            ListBoxItem laatste = historiekArray[historiekArray.Length - 1];
-            Array.Copy(historiekArray, 0, historiekArray, 1, historiekArray.Length - 1);
-            historiekArray[0] = laatstGespeeldeHand;
-            
+            ListBoxItem laatste = Speler.historiekArray[Speler.historiekArray.Length - 1];
+            Array.Copy(Speler.historiekArray, 0, Speler.historiekArray, 1, Speler.historiekArray.Length - 1);
+            Speler.historiekArray[0] = laatstGespeeldeHand;
+
         }
         #endregion
 
@@ -279,12 +277,12 @@ namespace BlackJack
             dealerDptmr.Stop();
             GeefDealerKaart();
         }
-        
+
         /// <summary>
         /// Voegt een <c>Kaart</c> toe aan <c>LBDealerKaarten</c>. Voegt daarna <c>kaartScore</c> toe aan <c>Dealer.DealerPunten</c>.
         /// <para>Overload functie zonder argumenten</para>
         /// </summary>
-        private void GeefDealerKaart()                                              
+        private void GeefDealerKaart()
         {
             LBDealerKaarten.Items.Add(KaartDeck.GeefKaart(out int kaartScore));
             Dealer.DealerPunten += kaartScore;
@@ -333,7 +331,7 @@ namespace BlackJack
                 BtnHit.IsEnabled = true;
             }
             UpdateAantalKaarten();
-            
+
         }
 
         ///// <summary>
@@ -381,7 +379,7 @@ namespace BlackJack
         /// <para>Als <c>Speler.Budget</c> groter is dan het dubbele van <c>Speler.Inzet</c>, wordt <c>BtnDouble</c> aangezet.</para>
         /// </summary>
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
-        {        
+        {
             if (Speler.Inzet > Speler.Budget * 0.1)
             {
                 LblResultaat.FontSize = 25;
@@ -394,7 +392,7 @@ namespace BlackJack
                 GeefDealerKaart();
                 GeefSpelerKaart();
                 BtnHit.IsEnabled = false;
-                VertraagdeKaartDeler(isSpeler); 
+                VertraagdeKaartDeler(isSpeler);
             }
             else
             {
@@ -541,10 +539,10 @@ namespace BlackJack
         /// </summary>
         private void MnItHistoriek_Click(object sender, RoutedEventArgs e)
         {
-            
+            HistoriekWindow historiekWindow = new HistoriekWindow();
             // window op het scherm laten zien
             historiekWindow.Show();
         }
-    }
+}
     #endregion
 }

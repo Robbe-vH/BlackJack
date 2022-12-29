@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BlackJack
 {
@@ -12,6 +13,7 @@ namespace BlackJack
         public static int Budget;
         public static int Inzet;
         public static int KaartScore;
+        public static ListBoxItem[] historiekArray = new ListBoxItem[10];
 
         public static List<Kaart> spelerKaarten = new List<Kaart>();
 
