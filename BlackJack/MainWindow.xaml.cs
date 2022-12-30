@@ -28,15 +28,15 @@ namespace BlackJack
         {
             InitializeComponent();
             MaakVeldenLeeg();
-            BtnHit.IsEnabled = false;
-            BtnStand.IsEnabled = false;
-            BtnDeel.IsEnabled = false;
-            BtnDouble.IsEnabled = false;
-            BtnInzetPlus1.IsEnabled = false;
-            BtnInzetPlus10.IsEnabled = false;
-            BtnInzetPlus5.IsEnabled = false;
-            BtnInzetPlus25.IsEnabled = false;
-            BtnResetInzet.IsEnabled = false;
+            BtnHit.Visibility = Visibility.Hidden;
+            BtnStand.Visibility = Visibility.Hidden;
+            BtnDeel.Visibility = Visibility.Hidden;
+            BtnDouble.Visibility = Visibility.Hidden;
+            BtnInzetPlus1.Visibility = Visibility.Hidden;
+            BtnInzetPlus10.Visibility = Visibility.Hidden;   
+            BtnInzetPlus5.Visibility = Visibility.Hidden;
+            BtnInzetPlus25.Visibility = Visibility.Hidden;
+            BtnResetInzet.Visibility = Visibility.Hidden;
             LblBudget.Text = "";
             LblInzet.Text = "";
             //MnItHistoriek.Header = string.Empty;
@@ -50,7 +50,7 @@ namespace BlackJack
 
         private void TijdDptmr_Tick(object? sender, EventArgs e)
         {
-            LblTijdstip.Content = DateTime.Now.ToLongTimeString();
+            LblTijdstip.Header = DateTime.Now.ToLongTimeString();
         }
 
         #region Nieuwe rondes en spel
@@ -76,13 +76,13 @@ namespace BlackJack
             rondeTeller = 0;
             UpdateBudget();
             UpdateInzet(0);
-            BtnDeel.IsEnabled = true;
-            BtnInzetPlus1.IsEnabled = true;
-            BtnInzetPlus10.IsEnabled = true;
-            BtnInzetPlus5.IsEnabled = true;
-            BtnInzetPlus25.IsEnabled = true;
-            BtnResetInzet.IsEnabled = true;
-            BtnNieuwSpel.IsEnabled = false;
+            BtnDeel.Visibility = Visibility.Visible;
+            BtnInzetPlus1.Visibility = Visibility.Visible;
+            BtnInzetPlus10.Visibility = Visibility.Visible;
+            BtnInzetPlus5.Visibility = Visibility.Visible;
+            BtnInzetPlus25.Visibility = Visibility.Visible;
+            BtnResetInzet.Visibility = Visibility.Visible;
+            BtnNieuwSpel.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -99,15 +99,15 @@ namespace BlackJack
             LblDealerScore.Text = Convert.ToString(Speler.SpelerPunten);
             LblSpelerScore.Text = Convert.ToString(Dealer.DealerPunten);
 
-            BtnDeel.IsEnabled = false;
-            BtnHit.IsEnabled = true;
-            BtnStand.IsEnabled = true;
-            BtnDouble.IsEnabled = false;
-            BtnInzetPlus1.IsEnabled = false;
-            BtnInzetPlus5.IsEnabled = false;
-            BtnInzetPlus10.IsEnabled = false;
-            BtnInzetPlus25.IsEnabled = false;
-            BtnResetInzet.IsEnabled = false;
+            BtnDeel.Visibility = Visibility.Hidden;
+            BtnHit.Visibility = Visibility.Visible;
+            BtnStand.Visibility = Visibility.Visible;
+            BtnDouble.Visibility = Visibility.Hidden;
+            BtnInzetPlus1.Visibility = Visibility.Hidden;
+            BtnInzetPlus5.Visibility = Visibility.Hidden;
+            BtnInzetPlus10.Visibility = Visibility.Hidden;
+            BtnInzetPlus25.Visibility = Visibility.Hidden;
+            BtnResetInzet.Visibility = Visibility.Hidden;
         }
 
         #endregion
@@ -127,14 +127,14 @@ namespace BlackJack
             LblBudget.Text = Convert.ToString(Speler.Budget);
             Speler.Inzet = 0;
             LblInzet.Text = Convert.ToString(Speler.Inzet);
-            BtnHit.IsEnabled = false;
-            BtnStand.IsEnabled = false;
-            BtnDeel.IsEnabled = true;
-            BtnInzetPlus1.IsEnabled = true;
-            BtnInzetPlus5.IsEnabled = true;
-            BtnInzetPlus10.IsEnabled = true;
-            BtnInzetPlus25.IsEnabled = true;
-            BtnResetInzet.IsEnabled = true;
+            BtnHit.Visibility = Visibility.Hidden;
+            BtnStand.Visibility = Visibility.Hidden;
+            BtnDeel.Visibility = Visibility.Visible;
+            BtnInzetPlus1.Visibility = Visibility.Visible;
+            BtnInzetPlus5.Visibility = Visibility.Visible;
+            BtnInzetPlus10.Visibility = Visibility.Visible;
+            BtnInzetPlus25.Visibility = Visibility.Visible;
+            BtnResetInzet.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -148,14 +148,14 @@ namespace BlackJack
             LblBudget.Text = Convert.ToString(Speler.Budget);
             Speler.Inzet = 0;
             LblInzet.Text = Convert.ToString(Speler.Inzet);
-            BtnHit.IsEnabled = false;
-            BtnStand.IsEnabled = false;
-            BtnDeel.IsEnabled = true;
-            BtnInzetPlus1.IsEnabled = true;
-            BtnInzetPlus5.IsEnabled = true;
-            BtnInzetPlus10.IsEnabled = true;
-            BtnInzetPlus25.IsEnabled = true;
-            BtnResetInzet.IsEnabled = true;
+            BtnHit.Visibility = Visibility.Hidden;
+            BtnStand.Visibility = Visibility.Hidden;
+            BtnDeel.Visibility = Visibility.Visible;
+            BtnInzetPlus1.Visibility = Visibility.Visible;
+            BtnInzetPlus5.Visibility = Visibility.Visible;
+            BtnInzetPlus10.Visibility = Visibility.Visible;
+            BtnInzetPlus25.Visibility = Visibility.Visible;
+            BtnResetInzet.Visibility = Visibility.Visible;
 
             Blut();
         }
@@ -172,21 +172,21 @@ namespace BlackJack
             LblBudget.Text = Convert.ToString(Speler.Budget);
             Speler.Inzet = 0;
             LblInzet.Text = Convert.ToString(Speler.Inzet);
-            BtnHit.IsEnabled = false;
-            BtnStand.IsEnabled = false;
-            BtnDeel.IsEnabled = true;
-            BtnInzetPlus1.IsEnabled = true;
-            BtnInzetPlus5.IsEnabled = true;
-            BtnInzetPlus10.IsEnabled = true;
-            BtnInzetPlus25.IsEnabled = true;
-            BtnResetInzet.IsEnabled = true;
+            BtnHit.Visibility = Visibility.Hidden;
+            BtnStand.Visibility = Visibility.Hidden;
+            BtnDeel.Visibility = Visibility.Visible;
+            BtnInzetPlus1.Visibility = Visibility.Visible;
+            BtnInzetPlus5.Visibility = Visibility.Visible; 
+            BtnInzetPlus10.Visibility = Visibility.Visible;
+            BtnInzetPlus25.Visibility = Visibility.Visible;    
+            BtnResetInzet.Visibility = Visibility.Visible;
         }
 
         private void UpdateHistoriek(char c)
         {
             MnItHistoriek.Header = $"{c}{Convert.ToString(Speler.Inzet)} - {Convert.ToString(Speler.SpelerPunten)}/{Convert.ToString(Dealer.DealerPunten)} ";
             // toevoegen aan historieklijst
-            string laatstGespeeldeHand = $"Ronde: { rondeTeller.ToString() } Bedrag:{c}{Speler.Inzet} euro  Speler Punten:{Convert.ToString(Speler.SpelerPunten)} Dealer Punten: {Convert.ToString(Dealer.DealerPunten)}";
+            string laatstGespeeldeHand = $"Ronde: { rondeTeller.ToString() } Bedrag: {c}{Speler.Inzet} euro  Speler Punten: {Convert.ToString(Speler.SpelerPunten)}  Dealer Punten: {Convert.ToString(Dealer.DealerPunten)}";
             Array.Copy(Speler.historiekArray, 0, Speler.historiekArray, 1, Speler.historiekArray.Length - 1);
             Speler.historiekArray[0] = laatstGespeeldeHand;
 
@@ -205,7 +205,7 @@ namespace BlackJack
         {
             if (inzet < Speler.Budget)
             {
-                BtnDeel.IsEnabled = true;
+                BtnDeel.Visibility = Visibility.Visible;
                 Speler.Inzet += inzet;
                 LblInzet.Text = Convert.ToString(Speler.Inzet);
             }
@@ -218,7 +218,7 @@ namespace BlackJack
             {
                 LblResultaat.FontSize = 25;
                 LblResultaat.Text = "";
-                BtnDeel.IsEnabled = true;
+                BtnDeel.Visibility = Visibility.Visible;
             }
 
         }
@@ -240,17 +240,17 @@ namespace BlackJack
             {
                 MessageBox.Show("U bent blut!", "Einde spel", MessageBoxButton.OK);
 
-                BtnDeel.IsEnabled = false;
-                BtnHit.IsEnabled = false;
-                BtnStand.IsEnabled = false;
-                BtnInzetPlus1.IsEnabled = false;
-                BtnInzetPlus5.IsEnabled = false;
-                BtnInzetPlus10.IsEnabled = false;
-                BtnInzetPlus25.IsEnabled = false;
-                BtnResetInzet.IsEnabled = false;
+                BtnDeel.Visibility = Visibility.Hidden;
+                BtnHit.Visibility = Visibility.Hidden;
+                BtnStand.Visibility = Visibility.Hidden;
+                BtnInzetPlus1.Visibility = Visibility.Hidden;
+                BtnInzetPlus5.Visibility = Visibility.Hidden;
+                BtnInzetPlus10.Visibility = Visibility.Hidden;
+                BtnInzetPlus25.Visibility = Visibility.Hidden;
+                BtnResetInzet.Visibility = Visibility.Hidden;
                 MaakVeldenLeeg();
 
-                BtnNieuwSpel.IsEnabled = true;
+                BtnNieuwSpel.Visibility = Visibility.Visible;
             }
         }
         #endregion
@@ -344,7 +344,8 @@ namespace BlackJack
             }
             else
             {
-                BtnHit.IsEnabled = true;
+                BtnStand.Visibility = Visibility.Visible;
+                BtnHit.Visibility = Visibility.Visible;
             }
             UpdateAantalKaarten();
 
@@ -407,18 +408,19 @@ namespace BlackJack
 
                 GeefDealerKaart();
                 GeefSpelerKaart();
-                BtnHit.IsEnabled = false;
+                BtnHit.Visibility = Visibility.Hidden;
                 VertraagdeKaartDeler(isSpeler);
             }
             else
             {
                 LblResultaat.FontSize = 15;
                 LblResultaat.Text = "Zet minstens 10% in!";
-                BtnDeel.IsEnabled = false;
+                BtnDeel.Visibility = Visibility.Hidden;
+                BtnDouble.Visibility = Visibility.Hidden;
             }
-            if (Speler.Inzet < Speler.Budget / 2)
+            if (Speler.Inzet < Speler.Budget / 2 && Speler.Inzet > Speler.Budget * 0.1)
             {
-                BtnDouble.IsEnabled = true;
+                BtnDouble.Visibility = Visibility.Visible;
             }
         }
         /// <summary>
@@ -429,7 +431,7 @@ namespace BlackJack
         {
             GeefSpelerKaart();
 
-            BtnDouble.IsEnabled = false;
+            BtnDouble.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// Voegt <c>Kaart</c> toe aan <c>LbDealerKaarten</c> toe tot <c>Dealer.DealerPunten</c> groter is dan 17.
@@ -459,7 +461,7 @@ namespace BlackJack
                 Win();
             }
 
-            BtnDouble.IsEnabled = false;
+            BtnDouble.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -490,7 +492,7 @@ namespace BlackJack
                 Win();
             }
 
-            BtnDouble.IsEnabled = false;
+            BtnDouble.Visibility = Visibility.Hidden;
         }
         private void BtnInzetPlus1_Click(object sender, RoutedEventArgs e)
         {
