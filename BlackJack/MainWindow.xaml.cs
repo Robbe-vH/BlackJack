@@ -540,7 +540,7 @@ namespace BlackJack
             UpdateBudget();
             Speler.Inzet *= 2;
 
-            //GeefSpelerHorizontaleKaart();
+            GeefSpelerKaart();
 
             if (Speler.SpelerPunten > 21)
             {

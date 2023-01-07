@@ -61,6 +61,7 @@
     <None Remove="Assets\SchuppenVier.png" />
     <None Remove="Assets\SchuppenVijf.png" />
     <None Remove="Assets\SchuppenZes.png" />
+    <None Remove="Assets\SchuppenZeven.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -227,6 +228,9 @@
 
   <ItemGroup>
     <Resource Include="Assets\KaartAchterkant.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\SchuppenZeven.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
