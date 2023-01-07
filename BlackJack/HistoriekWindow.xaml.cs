@@ -27,7 +27,7 @@ namespace BlackJack
             LbxHistoriek.Items.Clear();
 
             // Populate listbox with array items
-            for (int i = 0; i < Speler.historiekArray.Length - 1; i++)
+            for (int i = 0; i < Speler.historiekArray.Length; i++)
             {
                 ListBoxItem temp = new ListBoxItem();
                 temp.IsHitTestVisible = false;

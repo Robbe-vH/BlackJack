@@ -214,7 +214,7 @@ namespace BlackJack
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
             }
 
-            if (inzet > Speler.Budget * 0.1)
+            if (inzet >= Speler.Budget * 0.1)
             {
                 LblResultaat.FontSize = 25;
                 LblResultaat.Text = "";
@@ -401,7 +401,7 @@ namespace BlackJack
         /// </summary>
         private void BtnDeel_Click(object sender, RoutedEventArgs e)
         {
-            if (Speler.Inzet > Speler.Budget * 0.1)
+            if (Speler.Inzet >= Speler.Budget * 0.1)
             {
                 LblResultaat.FontSize = 25;
                 LblResultaat.Text = "";
