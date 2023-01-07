@@ -21,6 +21,7 @@
     <None Remove="Assets\HartenVijf.png" />
     <None Remove="Assets\HartenZes.png" />
     <None Remove="Assets\HartenZeven.png" />
+    <None Remove="Assets\KaartAchterkant.png" />
     <None Remove="Assets\KlaverenAas.png" />
     <None Remove="Assets\KlaverenAcht.png" />
     <None Remove="Assets\KlaverenBoer.png" />
@@ -222,6 +223,12 @@
     <Content Include="Assets\Red_Velvet_BG.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\KaartAchterkant.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

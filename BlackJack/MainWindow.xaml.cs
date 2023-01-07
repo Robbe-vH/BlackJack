@@ -35,7 +35,7 @@ namespace BlackJack
             BtnInzetPlus1.Visibility = Visibility.Hidden;
             BtnInzetPlus10.Visibility = Visibility.Hidden;   
             BtnInzetPlus5.Visibility = Visibility.Hidden;
-            BtnInzetPlus25.Visibility = Visibility.Hidden;
+            BtnInzetPlus25.Visibility = Visibility.Hidden;  
             BtnResetInzet.Visibility = Visibility.Hidden;
             LblBudget.Text = "";
             LblInzet.Text = "";
@@ -346,6 +346,10 @@ namespace BlackJack
             {
                 BtnStand.Visibility = Visibility.Visible;
                 BtnHit.Visibility = Visibility.Visible;
+                if (Speler.Inzet < Speler.Budget / 2)
+                {
+                    BtnDouble.Visibility = Visibility.Visible;
+                }
             }
             UpdateAantalKaarten();
 
@@ -409,6 +413,8 @@ namespace BlackJack
                 GeefDealerKaart();
                 GeefSpelerKaart();
                 BtnHit.Visibility = Visibility.Hidden;
+                BtnStand.Visibility = Visibility.Hidden;
+                BtnDouble.Visibility = Visibility.Hidden;
                 VertraagdeKaartDeler(isSpeler);
             }
             else
@@ -417,10 +423,6 @@ namespace BlackJack
                 LblResultaat.Text = "Zet minstens 10% in!";
                 BtnDeel.Visibility = Visibility.Hidden;
                 BtnDouble.Visibility = Visibility.Hidden;
-            }
-            if (Speler.Inzet < Speler.Budget / 2 && Speler.Inzet > Speler.Budget * 0.1)
-            {
-                BtnDouble.Visibility = Visibility.Visible;
             }
         }
         /// <summary>

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace BlackJack
 {
     /// <summary>
-    /// Interaction logic for HistoriekWindow.xaml
+    /// Window voor de afgelopen 10 gespeelde handen. Geeft een Listbox die <c>Speler.historiekArray</c> afprint.
     /// </summary>
     public partial class HistoriekWindow : Window
     {

@@ -29,8 +29,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
-            <Image Source="/Assets/Red_Velvet_BG.jpg" Grid.ColumnSpan="2" Grid.RowSpan="3" Stretch="UniformToFill"/>
+            <Image Source="/Assets/Red_Velvet_BG.jpg" Grid.ColumnSpan="3" Grid.RowSpan="3" Stretch="UniformToFill"/>
 
             <Viewbox Name="Scores">
                 <Grid Margin="2 0 0 0">
@@ -43,11 +44,6 @@
                         <ColumnDefinition Width="0.1*" />
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
-                    <Image 
-                        Source="/Assets/RuitenVier.png"
-                        MinWidth="7"
-                        Grid.Column="2"
-                        Grid.RowSpan="2" />
                     <TextBlock 
                         Foreground="#f2f2f2"
                         Text="Speler:"
@@ -57,7 +53,7 @@
                         VerticalAlignment="Center" />
                     <TextBlock 
                         x:Name="LblSpelerScore"
-                        Foreground="#f2f2f2"
+                        Foreground="#6BB3F2"
                         Text="0"
                         Margin="1"
                         FontSize="3"
@@ -74,7 +70,7 @@
                         VerticalAlignment="Center" />
                     <TextBlock 
                         x:Name="LblDealerScore"
-                        Foreground="#f2f2f2"
+                        Foreground="#6BB3F2"
                         Text="0"
                         Margin="1"
                         FontSize="3"
@@ -82,16 +78,7 @@
                         Grid.Row="1" 
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" />
-                    <TextBlock 
-                        x:Name="LblAantalKaarten"
-                        Foreground="#f2f2f2"
-                        Text="0"
-                        Margin="1"
-                        FontSize="3"
-                        Grid.Column="2"
-                        Grid.RowSpan="2"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center" />
+                    
                 </Grid>
             </Viewbox>
 
@@ -113,7 +100,7 @@
                         VerticalAlignment="Center"/>
                     <TextBlock 
                         x:Name="LblBudget" 
-                        Foreground="#f2f2f2" 
+                        Foreground="#6BB3F2" 
                         Text="420"
                         FontSize="3"
                         Grid.Column="1"
@@ -127,7 +114,7 @@
                         Text="Inzet: " />
                     <TextBlock 
                         x:Name="LblInzet"
-                        Foreground="#f2f2f2"
+                        Foreground="#6BB3F2"
                         Grid.Column="3" 
                         FontSize="3"
                         Text="0" 
@@ -137,7 +124,7 @@
             <Viewbox Name="Resultaat" Grid.Row="1" Grid.Column="1">
                 <TextBlock 
                     x:Name="LblResultaat"
-                    Foreground="#f2f2f2" 
+                    Foreground="#6BB3F2" 
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Text="Resultaat" />
@@ -157,7 +144,7 @@
 
                     <Button 
                         x:Name="BtnResetInzet"
-                        Background="#91BBF2"
+                        Background="#78282a"
                         Foreground="#f2f2f2"
                         Grid.ColumnSpan="2"
                         Content="Inzet Resetten"
@@ -167,7 +154,7 @@
                         Click="BtnResetInzet_Click"/>
                     <Button 
                         x:Name="BtnInzetPlus1"
-                        Background="#91BBF2"
+                        Background="#78282a"
                         Foreground="#f2f2f2"
                         Grid.Row="1" 
                         Content="+1"
@@ -176,7 +163,7 @@
                         Click="BtnInzetPlus1_Click"/>
                     <Button 
                         x:Name="BtnInzetPlus5"
-                        Background="#91BBF2"
+                        Background="#78282a"
                         Foreground="#f2f2f2"
                         Grid.Column="1"
                         Grid.Row="1" 
@@ -186,7 +173,7 @@
                         Click="BtnInzetPlus5_Click"/>
                     <Button 
                         x:Name="BtnInzetPlus10"
-                        Background="#91BBF2"
+                        Background="#78282a"
                         Foreground="#f2f2f2"
                         Grid.Row="2" 
                         Content="+10"
@@ -195,7 +182,7 @@
                         Click="BtnInzetPlus10_Click"/>
                     <Button 
                         x:Name="BtnInzetPlus25"
-                        Background="#91BBF2"
+                        Background="#78282a"
                         Foreground="#f2f2f2"
                         Grid.Column="1" 
                         Grid.Row="2" 
@@ -207,7 +194,7 @@
             </Viewbox>
 
 
-            <Viewbox Name="DealerKaarten" Grid.Column="2" Stretch="Uniform">
+            <Viewbox Name="DealerKaarten" Grid.Column="1" Stretch="Uniform">
                 <Grid>
                     <ListBox 
                         Name="LBDealerKaarten"
@@ -254,14 +241,13 @@
                         </ItemsControl.ItemsPanel>
                         <ListBox.ItemTemplate >
                             <DataTemplate>
-                                <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical" Height="90">
                                     <TextBlock Text="{Binding Titel}" Foreground="#f2f2f2" FontSize="15" Margin="0.5"/>
                                     <Image Source="{Binding ImgSource}" Height="70" Width="55" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-
                     <Grid Grid.Row="1" Margin=" 5 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
@@ -269,25 +255,17 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
-                        <Button 
-                            x:Name="BtnNieuwSpel" 
-                            Background="#91BBF2"
-                            Foreground="#f2f2f2"
-                            Content="Nieuw Spel"
-                            Margin="5"
-                            MaxWidth="50"
-                            MaxHeight="15"
-                            Click="BtnNieuwSpel_Click"/>
+
                         <Button
                             x:Name="BtnDeel"
-                            Background="#91BBF2"
+                            Background="#78282a"
                             Foreground="#f2f2f2"
                             Content="Deel"
                             Margin="5"
                             Click="BtnDeel_Click"/>
                         <Button
                             x:Name="BtnHit"
-                            Background="#91BBF2"
+                            Background="#78282a"
                             Foreground="#f2f2f2"
                             Content="Hit"
                             Margin="5"
@@ -295,7 +273,7 @@
                             Click="BtnHit_Click" />
                         <Button
                             x:Name="BtnStand"
-                            Background="#91BBF2"
+                            Background="#78282a"
                             Foreground="#f2f2f2"
                             Content="Stand"
                             Margin="5"
@@ -303,7 +281,7 @@
                             Click="BtnStand_Click"/>
                         <Button
                             x:Name="BtnDouble"
-                            Background="#91BBF2"
+                            Background="#78282a"
                             Foreground="#f2f2f2"
                             Content="Double Down"
                             Margin="5" 
@@ -312,8 +290,33 @@
                     </Grid>
                 </Grid>
             </Viewbox>
-
+            
+            <Button 
+                x:Name="BtnNieuwSpel" 
+                Background="#78282a"
+                Foreground="#f2f2f2"
+                Content="Nieuw Spel"
+                Margin="0 0 5 0"
+                Grid.Row="1"
+                Grid.Column="2"
+                Click="BtnNieuwSpel_Click"/>
+            <Image 
+                Source="/Assets/KaartAchterkant.png"
+                MinWidth="7"
+                Grid.Row="2"
+                Grid.Column="2"/>
+            <TextBlock 
+                x:Name="LblAantalKaarten"
+                Text="0"
+                FontSize="40"
+                FontWeight="Bold"
+                Margin="1"
+                Grid.Column="2"
+                Grid.Row="2"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center" FontFamily="Comic Sans MS" />
         </Grid>
+        <Image Source="/KaartAchterkant.png" Stretch="Fill" Width="100"/>
 
     </DockPanel>
 

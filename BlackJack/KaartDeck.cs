@@ -7,7 +7,10 @@ using System.Windows.Media.Imaging;
 
 namespace BlackJack
 {
-    // Kaart klasse aanmaken
+    /// <summary>
+    /// Klasse die een <c>Kaart</c> beschrijft. Bevat publieke variabelen <c>string soort</c>, <c>string naam</c>, <c>BitmapImage Foto</c>.
+    /// Bevat properties <c>string ImgSource</c> en <c>string Titel</c>.
+    /// </summary>
     public class Kaart
     {
         public string soort = "";
