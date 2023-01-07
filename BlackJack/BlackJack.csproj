@@ -21,6 +21,7 @@
     <None Remove="Assets\HartenVijf.png" />
     <None Remove="Assets\HartenZes.png" />
     <None Remove="Assets\HartenZeven.png" />
+    <None Remove="Assets\KaartAchterkant.png" />
     <None Remove="Assets\KlaverenAas.png" />
     <None Remove="Assets\KlaverenAcht.png" />
     <None Remove="Assets\KlaverenBoer.png" />
@@ -34,6 +35,7 @@
     <None Remove="Assets\KlaverenVijf.png" />
     <None Remove="Assets\KlaverenZes.png" />
     <None Remove="Assets\KlaverenZeven.png" />
+    <None Remove="Assets\Red_Velvet_BG.jpg" />
     <None Remove="Assets\RuitenAas.png" />
     <None Remove="Assets\RuitenAcht.png" />
     <None Remove="Assets\RuitenBoer.png" />
@@ -215,6 +217,18 @@
     <Content Include="Assets\SchuppenZes.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\Red_Velvet_BG.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\KaartAchterkant.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
