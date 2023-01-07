@@ -6,3 +6,6 @@ Project voor WPL1
      src="./images/blackjackScreenshot.png"
      alt="Screenshot User Interface"
      style="max-width: 500px" >
+
+## Resources
+Kaart Deck: https://www.freepik.com/free-vector/deck-gangsta-playing-cards_8083771.htm
