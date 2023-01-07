@@ -1,5 +1,8 @@
 # BlackJack
 Project voor WPL1
 
-##Screenshot
-<img src="./images/blackjackScreenshot.png" alt="Alt text" title="Optional title">
+## Screenshot UI
+<img
+     src="./images/blackjackScreenshot.png"
+     alt="Screenshot User Interface"
+     max-width: 500px">
