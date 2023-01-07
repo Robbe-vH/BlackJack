@@ -5,4 +5,4 @@ Project voor WPL1
 <img
      src="./images/blackjackScreenshot.png"
      alt="Screenshot User Interface"
-     max-width: 500px">
+     style="max-width: 500px" >
