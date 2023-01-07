@@ -2,4 +2,4 @@
 Project voor WPL1
 
 ##Screenshot
-![My Image](images/blackjackScreenshot.jpg)
+<img src="./images/blackjackScreenshot.png" alt="Alt text" title="Optional title">
