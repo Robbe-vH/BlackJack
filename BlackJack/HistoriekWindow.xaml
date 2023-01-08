@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:BlackJack"
         mc:Ignorable="d"
         Title="HistoriekWindow" Height="350" Width="400">
-    <Grid>
+    <Grid Background="Maroon">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="79*"/>
             <ColumnDefinition/>
@@ -15,9 +15,9 @@
             <RowDefinition Height="0.3*" />
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Historiek" FontSize="30" FontWeight="DemiBold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="139,0,0,0"/>
+        <TextBlock Text="Historiek" FontSize="30" FontWeight="DemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="139,0,0,0"/>
         
-        <ListBox Name="LbxHistoriek" Grid.ColumnSpan="2" Margin="0,100,0,0" Grid.RowSpan="2" >
+        <ListBox Name="LbxHistoriek" Grid.ColumnSpan="2" Margin="0,100,0,0" Grid.RowSpan="2" Background="Maroon" Foreground="White">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                     <Setter Property="Focusable" Value="False"/>
