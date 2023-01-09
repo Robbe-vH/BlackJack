@@ -203,13 +203,13 @@ namespace BlackJack
         /// <param name="inzet">Waarde van <c>BtnInzet</c></param>
         private void UpdateInzet(int inzet)
         {
-            if (inzet < Speler.Budget)
+            if (Speler.Inzet < Speler.Budget)
             {
                 BtnDeel.Visibility = Visibility.Visible;
                 Speler.Inzet += inzet;
                 LblInzet.Text = Convert.ToString(Speler.Inzet);
             }
-            else if (inzet > Speler.Budget)
+            else if (Speler.Inzet > Speler.Budget)
             {
                 MessageBox.Show("U kan niet meer inzetten dan u heeft!", "Inzet Fout", MessageBoxButton.OK);
             }
