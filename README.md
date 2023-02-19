@@ -1,7 +1,7 @@
 # BlackJack
 Project voor WPL1
 
-`Publish` folder bevat alle installie files.
+`Publish` folder bevat alle installatie files.
 
 ## Screenshot UI
 <img
